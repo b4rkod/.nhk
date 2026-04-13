@@ -3,7 +3,7 @@ VERCMD  ?= git describe --tags 2> /dev/null
 VERSION := $(shell $(VERCMD) || cat VERSION)
 
 CPPFLAGS += -D_POSIX_C_SOURCE=200112L -DVERSION=\"$(VERSION)\"
-CFLAGS   += -std=c99 -pedantic -Wall -Wextra -funroll-loops -Ofast -flto -ffast-math -O3 -march=native -ftree-vectorize -pipe -fopenmp 
+CFLAGS   += -std=c99 -pedantic -Wall -Wextra -Ofast -flto -ffast-math -O3 -march=native -ftree-vectorize -pipe 
 LDFLAGS  ?=
 LDLIBS    = $(LDFLAGS) -lxcb -lxcb-keysyms -lxcb-xkb
 
