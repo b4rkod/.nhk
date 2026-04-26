@@ -185,9 +185,9 @@ case "$1" in
     -m) 
 
      if [[ $# -gt 1 ]]; then
-	$labyrmu -e "${@:2}" &
+	$LABYRMU -e "${@:2}" &
      else 
-	$labyrmu &
+	$LABYRMU &
      fi
         ;;
 	
