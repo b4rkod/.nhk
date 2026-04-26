@@ -2,10 +2,11 @@
 LABYRTERM="urxvt"
 LABYRMU="$LABYRTERM -e ncmpcpp"
 LABYREDIT="$LABYRTERM -e nvim"
-LABYRWEB="mullvad-browser"
+LABYRWEB="qutebrowser"
 LABYREDIT="nvim"
 LABYRCHAT="equibop"
 LABYRMAIL="claws-mail"
+LABYRFM="$LABYRTERM -e lf"
 WIDIR="$HOME/.nhk"
 WIDIRCFGDIR="$HOME/.nhk/xt/cfg"
 
@@ -128,8 +129,8 @@ wideps() { # ignore this
 #        "OpenSUSE")
 #            sudo zypper install -t pattern devel_basis && sudo zypper install libX11-devel libXft-devel libXinerama-devel xorg-x11-server xorg-x11-xinit
 #            ;;
-	"Arch") 
-            sudo pacman -S base-devel cairo libx11 libxft libxinerama git python pango pkgconf gobject-introspection lf xsel htop brightnessctl redshift rxvt-unicode rofi nvim libwnck3 yajl freetype2 shotgun xorg-xclipboard terminus-font ueberzug tmux webkit2gtk-4.1 gcr tmux xorg-xsetroot --noconfirm
+	"arch") 
+            sudo pacman -S base-devel cairo libx11 libxft libxinerama git python pango pkgconf gobject-introspection lf xsel htop brightnessctl redshift rxvt-unicode rofi nvim libwnck3 yajl freetype2 shotgun xorg-xclipboard terminus-font ueberzug tmux webkit2gtk-4.1 gcr tmux xorg-xsetroot  --noconfirm
 	    git clone https://aur.archlinux.org/yay.git
 	    cd yay/ 
 	    makepkg -si 
@@ -152,9 +153,17 @@ case "$1" in
      if [[ $# -gt 1 ]]; then
 	$LABYREDIT "${@:2}" &
      else 
-	$LABYRCHAT &
+	$LABYREDIT &
      fi
-        exec $LABYREDIT {0:$2 &
+        ;;
+
+    -fm)
+
+     if [[ $# -gt 1 ]]; then
+	$LABYRFM "${@:2}" &
+     else 
+	$LABYRFM &
+     fi
         ;;
 
     -c)
@@ -176,12 +185,21 @@ case "$1" in
     -m) 
 
      if [[ $# -gt 1 ]]; then
-	$LABYRMU -e "${@:2}" &
+	$labyrmu -e "${@:2}" &
      else 
-	$LABYRMU &
+	$labyrmu &
      fi
         ;;
 	
+    -M) 
+
+     if [[ $# -gt 1 ]]; then
+	$LABYRMAIL -e "${@:2}" &
+     else 
+	$LABYRMAIL &
+     fi
+        ;;
+
     -g)
 	
 	URL=$(echo -e "" | dmenu -i -f -fn 'Terminus:pixelsize=10' -nb black -nf white -sb white -sf black -p "::git")
@@ -334,7 +352,7 @@ case "$1" in
 	"
 	
 	OBJ_LENGTH=$(echo $OPTIONS | jq length)
-	OBJ_MENU=$(echo $OPTIONS | jq -r ".[][0]" | dmenu -i -fn 'Terminus:pixelsize=10' -nb black -nf white -sb white -sf black -p "::src")
+	OBJ_MENU=$(echo $OPTIONS | jq -r ".[][0]" | dmenu -i -fn 'Terminus:pixelsize=10:antialias=true' -nb black -nf white -sb white -sf black -p "::src")
 	OBJ_QRY=$(echo "" | dmenu -i -fn 'Terminus:pixelsize=10' -nb black -nf white -sb white -sf black -p "::query")
 	OBJ_KEYWORDS=$(echo "$OBJ_QRY" | tr " " "+")
 	OBJ_SELECTED=$(echo "$OBJ_MENU" | cut -d' ' -f1)
@@ -342,14 +360,14 @@ case "$1" in
 	main() {
 	    for i in $(seq 0 $((OBJ_LENGTH - 1))); do
 	        if [ "$OBJ_SELECTED" = "+" ]; then
-	            PREFIXMENU=$(echo "" | dmenu -i -fn 'Terminus:pixelsize=10' -nb black -nf white -sb white -sf black -p "::prfx[a]" <&-)
-	            URLQUERY=$(echo "" | dmenu -fn 'Terminus:pixelsize=10' -nb black -nf white -sb white -sf black -p "::url[b]" <&-)
+	            PREFIXMENU=$(echo "" | dmenu -i -fn 'Terminus:pixelsize=10:antialias=true' -nb black -nf white -sb white -sf black -p "::prfx[a]" <&-)
+	            URLQUERY=$(echo "" | dmenu -fn 'Terminus:pixelsize=10:antialias=true' -nb black -nf white -sb white -sf black -p "::url[b]" <&-)
 	            if [ ! -z "$PREFIXMENU" ]; then
 	                echo "[ \"$PREFIXMENU\", \"$URLQUERY\" ]," >> $FILE
 	            fi
 	
 	        elif [ "$OBJ_SELECTED" = "-" ]; then
-	            OBJ_MENU=$(echo "$OPTIONS" | jq -r ".[][0]" | head -n -2 | dmenu -fn 'Terminus:pixelsize=10' -nb black -nf white -sb white -sf black -i -p "::del")
+	            OBJ_MENU=$(echo "$OPTIONS" | jq -r ".[][0]" | head -n -2 | dmenu -fn 'Terminus:pixelsize=10:antialias=true' -nb black -nf white -sb white -sf black -i -p "::del")
 	            sed -i "/$OBJ_MENU/d" $FILE
 	        fi
 	        
