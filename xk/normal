@@ -1,9 +1,9 @@
-/mG# lb is a modal interface overlay for widow. 
+# lb is a modal interface overlay for widow. 
 # need ability to quickly send any one key or macro before returning to normal
 
 # [lb]
 
-shift + space
+hyper
  lb -v 
 
 backslash ; v
@@ -104,18 +104,14 @@ space ; space
 ctrl + W 
  dwmc togglebar
 
-shift + 1
- 
-
-#c ; f
-# lb -i && python ~/cmdlaunch.py "pkill -f" && python ~/cmdlaunch.py -n ""
+#shift + 1
 
 c ; w
  dwmc killclient && dmenu-frecency && lb -i
 
 ctrl + n
  dunstctl close-all
-G
+
 ctrl + N 
  dunstctl history-pop
 
@@ -169,7 +165,7 @@ comma
 ctrl + comma 
  wm -t wm -EE
 
-ctrl + shift +  comma
+alt + comma
  wm -t wm -EE  ~/.nhk/src/config.h
  
 shift + comma
@@ -183,11 +179,14 @@ shift + 8
 m
  wm -m  
 
+ctrl + m
+ wm -M
+
 M
  wm -t htop
 
 I
- wm -t ~/.new.txt 
+ wm -t nvim ~/.new.txt 
 
 T
  wm -t ~/todo.txt
@@ -223,7 +222,7 @@ o ; w
  nitrogen
 
 o ; f
- dmenufm -p
+ wm -fm
 
 o ; semicolon
  mullvad-browser "$(xsel -b)"
