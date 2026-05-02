@@ -1,5 +1,7 @@
 # .nhk
-nhk is a modal desktop environment based atop dwm. 
+nhk is a modal desktop environment based atop dwm.
+
+only working distro is still arch cause i went through a stupid situation recently but give me time.
 
 ----------------------------
 
