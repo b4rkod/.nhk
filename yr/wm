@@ -293,20 +293,20 @@ case "$1" in
 
     -b)
 	#while true; do
-	    QRY=$(echo "" | dmenu -i -fn 'Terminus:pixelsize=10' -nb black -nf white -sb white -sf black -p "::url")
+	    QRY=$(echo "" | dmenu -i -fn 'Terminus:pixelsize=10:antialias=true' -nb black -nf white -sb white -sf black -p "::url")
 	
 	    if [[ ! -z $QRY ]]; then
 	        if echo "$QRY" | grep -qE "^(http|https)://"; then
-	    	    TOROPT=$(echo -e "clearweb\ntor" | dmenu -i -fn 'Terminus:pixelsize=10' -nb black -nf white -sb white -sf black -p "::brw")
+	    	    TOROPT=$(echo -e "clearweb\ntor" | dmenu -i -fn 'Terminus:pixelsize=10:antialias=true' -nb black -nf white -sb white -sf black -p "::brw")
 	            if [[ "$TOROPT" == "tor" ]]; then
 	                torb "$QRY" &
 	            else
 	                $LABYRWEB "$QRY" &
 	            fi
 	        else
-	            OPT4WB="$(echo -e "src\nurl" | dmenu -i -fn 'Terminus:pixelsize=10' -nb black -nf white -sb white -sf black -p "::opt")"
+	            OPT4WB="$(echo -e "src\nurl" | dmenu -i -fn 'Terminus:pixelsize=10:antialias=true' -nb black -nf white -sb white -sf black -p "::opt")"
 	            if [[ $OPT4WB == "src" ]]; then
-			TOROPT=$(echo -e "clearweb\ntor" | dmenu -i -fn 'Terminus:pixelsize=10' -nb black -nf white -sb white -sf black -p "::brw")
+			TOROPT=$(echo -e "clearweb\ntor" | dmenu -i -fn 'Terminus:pixelsize=10:antialias=true' -nb black -nf white -sb white -sf black -p "::brw")
 	                if [[ "$TOROPT" == "tor" ]]; then
 	                    torb "https://duckduckgo.com/search?q=$(echo "$QRY" | tr ' ' '+')" &
 	                else
@@ -315,15 +315,17 @@ case "$1" in
 	            elif [[ $OPT4WB == "url" ]]; then
 	                if [[ "$TOROPT" == "tor" ]]; then
 	                    torb "https://$QRY" & 
-	                else
+		    	else 
 	                    $LABYRWEB "https://$QRY" & 
 	                fi
 	            fi
 	        fi
 	    else 
-	        echo 'no query.'
-		$LABYRWEB &
-	        break
+	        if [[ $QRY != "" ]]; then
+	            $LABYRWEB "https://$QRY" & 
+		else
+		   notify-send "meow"
+		fi
 	    fi
     #done
 	;;
