@@ -3,8 +3,8 @@
 
 # [lb]
 
-hyper
- lb -v 
+#hyper
+# lb -v 
 
 backslash ; v
  lb -V
@@ -35,9 +35,6 @@ w
 
 W
  notify-send $(dmenu-frecency --read-apps)
-
-ctrl + w 
- nitrogen
 
 backslash ; c
  lb -c 
@@ -74,6 +71,15 @@ space ; {g ; g,G}
 shift + grave
  dwmc togglemax
 
+{F7,F8}
+ brightnessctl set 20%{-,+}
+
+z ; a 
+ dwmc showhideclient
+
+z ; A 
+ dwmc unhideall
+
 F11
  dwmc togglebar
 
@@ -98,7 +104,7 @@ equal
 {l,h}
  dwmc setmfact {+,-}0.05
 
-space ; space
+x ; p
  dwmc zoom
 
 ctrl + W 
@@ -165,7 +171,7 @@ comma
 ctrl + comma 
  wm -t wm -EE
 
-alt + comma
+ctrl + question
  wm -t wm -EE  ~/.nhk/src/config.h
  
 shift + comma
@@ -185,11 +191,11 @@ ctrl + m
 M
  wm -t htop
 
-I
+colon ; e 
  wm -t nvim ~/.new.txt 
 
-T
- wm -t ~/todo.txt
+colon ; 
+ wm -t nvim ~/todo.txt
 
 # need % to cycle thorough all instances (children) of the focused program
 
@@ -212,14 +218,15 @@ z ; r
  wm -ar
 
 # terminal
+
 t 
  wm -t 
 
-{F7,F8}
- brightnessctl set 20%{-,+}
-
 o ; w
  nitrogen
+
+shift + 7 
+ wm -t hblock
 
 o ; f
  wm -fm
@@ -279,3 +286,6 @@ question
 # $ometing need$ to allow u to mark a currently open file into the nromal mode config for being launched with grave then the letter.
 
 # [bookmarks]
+
+shift + 2 ; g
+ supertuxkart

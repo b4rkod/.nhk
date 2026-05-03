@@ -1,8 +1,8 @@
 alt + o ; w
  dmenu-frecency 
 
-alt + w
- lb -v
+#hyper
+# lb -v
 
 alt + Escape
  lb -v
@@ -13,18 +13,12 @@ alt + o ; ctrl + space
 alt + Tab
  lb -v
 
-Super_L
- lb -v
-
-Awm_R
- lb -v
-
 alt + o ; backslash ; v
  lb -V
 
 # [nav]
 
-alt + o ; slash
+alt + o ; grave
  rofi -show window -kb-element-prev 'k' -kb-element-next 'j' -kb-accept-entry 'o'
 
 alt + o ; e 
@@ -50,6 +44,9 @@ alt + o ; {j,k}
 alt + o ; {ctrl + grave}
  dwmc setlayoutex {8,0}
  
+alt + o ; F10 
+ dwmc showhideclient 
+
 alt + o ; F11 
  dwmc togglebar
  
