@@ -3,7 +3,9 @@
 /* Helper macros for spawning commands */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 #define CMD(...)   { .v = (const char*[]){ __VA_ARGS__, NULL } }
+
 #include <X11/XF86keysym.h>
+
 /* appearance */
 static const unsigned int borderpx       = 1;   /* border pixel of windows */
 static const unsigned int snap           = 32;  /* snap pixel */
@@ -14,6 +16,7 @@ static const unsigned int gappiv         = 10;  /* vert inner gap between window
 static const unsigned int gappoh         = 10;  /* horiz outer gap between windows and screen edge */
 static const unsigned int gappov         = 30;  /* vert outer gap between windows and screen edge */
 static const int smartgaps_fact          = 1;   /* gap factor when there is only one client; 0 = no gaps, 3 = 3x outer gaps */
+
 static const int showbar                 = 1;   /* 0 means no bar */
 static const int topbar                  = 1;   /* 0 means bottom bar */
 static const char slopspawnstyle[]       = "-t 0 -c 0.92,0.85,0.69,0.3 -o"; /* do NOT define -f (format) here */
@@ -91,7 +94,7 @@ static char *colors[][ColCount] = {
 
 static const Launcher launchers[] = {
 	/* icon to display      command        */
-	{ "*",               CMD("lb", "-v") },
+	{ "",               CMD("", "") },
 };
 
 static const char *const autostart[] = {
@@ -102,6 +105,9 @@ static const char *const autostart[] = {
 	"dunst", NULL,
 	"slstatus", NULL,
 	"pasystray", NULL,
+	"wm", "-T", NULL,
+	"hintsd", NULL,
+	"riseup-vpn", NULL, 
 	NULL /* terminate */
 };
 
@@ -306,7 +312,9 @@ static const Key keys[] = {
 	{ 0,                            XF86XK_AudioRaiseVolume, spawn,        {.v = volup } },
         { 0,                            XF86XK_AudioLowerVolume, spawn,        {.v = voldown }},
         { 0,                            XF86XK_AudioMicMute,     spawn,        {.v = micmute }},
-	{ MODKEY,                       XK_p,          spawn,                  {.v = lbres } },
+        { 0,                            XF86XK_AudioMicMute,     spawn,        {.v = micmute }},
+        { 0,                            XK_Super_L,    spawn,        	       {.v = lbres }},
+        { 0,                            XK_Super_R,    spawn,        	       {.v = lbres }},
 	{ MODKEY|ShiftMask,             XK_Return,     spawn,                  {.v = termcmd } },
 	{ MODKEY,                       XK_p,          spawn,                  {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return,     spawn,                  {.v = termcmd } },
@@ -356,7 +364,6 @@ static const Key keys[] = {
 	{ MODKEY|Mod4Mask,              XK_0,          togglegaps,             {0} },
 	{ MODKEY|Mod4Mask|ShiftMask,    XK_0,          defaultgaps,            {0} },
 	{ MODKEY,                       XK_Tab,        view,                   {0} },
-	{ MODKEY|ControlMask,           XK_z,          showhideclient,         {0} },
 	{ MODKEY|ControlMask,           XK_s,          unhideall,              {0} },
 	{ MODKEY|ShiftMask,             XK_c,          killclient,             {0} },
 	{ MODKEY|ShiftMask,             XK_x,          killunsel,              {0} },
