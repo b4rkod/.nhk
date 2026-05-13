@@ -1,3 +1,5 @@
+
+
 #!/bin/bash
 LABYRTERM="urxvt"
 LABYRMU="$LABYRTERM -e ncmpcpp"
@@ -9,6 +11,17 @@ LABYRMAIL="claws-mail"
 LABYRFM="$LABYRTERM -e lf"
 WIDIR="$HOME/.nhk"
 WIDIRCFGDIR="$HOME/.nhk/xt/cfg"
+CORECOUNT="4"
+
+
+# Keep sudo alive until script exits soo we don't prompt user for sudo 50 times
+sudo -v
+while true; do
+    sudo -n true
+    sleep 50
+    kill -0 "$$" || exit
+done 2>/dev/null &
+
 
 wideps() { # ignore this 
     case "$1" in
@@ -129,7 +142,8 @@ wideps() { # ignore this
 #        "OpenSUSE")
 #            sudo zypper install -t pattern devel_basis && sudo zypper install libX11-devel libXft-devel libXinerama-devel xorg-x11-server xorg-x11-xinit
 #            ;;
-	"arch") 
+
+	"Arch") 
             sudo pacman -S base-devel cairo libx11 libxft libxinerama git python pango pkgconf gobject-introspection lf xsel htop brightnessctl redshift rxvt-unicode rofi nvim libwnck3 yajl freetype2 shotgun xorg-xclipboard terminus-font ueberzug tmux webkit2gtk-4.1 gcr tmux xorg-xsetroot  --noconfirm
 	    git clone https://aur.archlinux.org/yay.git
 	    cd yay/ 
@@ -475,19 +489,13 @@ case "$1" in
   -upk)  
 	 wideps $2
    	 cd $WIDIR/src/xtr
-	 cd $WIDIR/src/xtr/dmenu/ && make -j4 && sudo make install
-	 cd ..
-	 cd $WIDIR/src/xtr/lock/ && make -j4 && sudo make install
-	 cd ..
-	 cd $WIDIR/src/xtr/nsxiv/ && make -j4 && sudo make install
-	 cd ..
-	 cd $WIDIR/src/xtr/dunst/ && make -j4 && sudo make install
-	 cd ..
-	 cd $WIDIR/src/xtr/sxhkd/ && make -j4 && sudo make install
-	 cd ..
-	 cd $WIDIR/src/xtr/slstatus/ && make -j4 && sudo make install
-	 cd ..
-	 cd $WIDIR/src/xtr/surf/ && make -j4 && sudo make install
+	 cd $WIDIR/src/xtr/dmenu/ && make -j$CORECOUNT && sudo make install
+	 cd $WIDIR/src/xtr/lock/ && make -j$CORECOUNT && sudo make install
+	 cd $WIDIR/src/xtr/nsxiv/ && make -j$CORECOUNT && sudo make install
+	 cd $WIDIR/src/xtr/dunst/ && make -j$CORECOUNT && sudo make install
+	 cd $WIDIR/src/xtr/sxhkd/ && make -j$CORECOUNT && sudo make install
+	 cd $WIDIR/src/xtr/slstatus/ && make -j$CORECOUNT && sudo make install
+	 cd $WIDIR/src/xtr/surf/ && make -j$CORECOUNT && sudo make install
 	 cd $WIDIR/src/xtr/surf/wyebadblock/ && make -j4 && sudo make install
 	 sudo mkdir /usr/local/lib/surf && sudo ln -s /usr/lib/wyebrowser/adblock.so /usr/local/lib/surf
 	 cd $WIDIR
