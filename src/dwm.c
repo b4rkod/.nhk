@@ -678,7 +678,7 @@ buttonpress(XEvent *e)
 	if (click == ClkRootWin && (c = wintoclient(ev->window))) {
 		focus(c);
 		restack(selmon);
-		XAllowEvents(dpy, ReplayPointer, CurrentTime);
+		XAllowEvents(dpy, AsyncKeyboard, CurrentTime);
 		click = ClkClientWin;
 	}
 
