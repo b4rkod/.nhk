@@ -65,7 +65,7 @@ LIBS = -L${X11LIB} -lX11 ${XINERAMALIBS} ${FREETYPELIBS}  ${XRENDER} ${MPDCLIENT
 # flags
 CPPFLAGS = -D_DEFAULT_SOURCE -D_BSD_SOURCE -D_XOPEN_SOURCE=700L -DVERSION=\"${VERSION}\" ${XINERAMAFLAGS}
 #CFLAGS   = -g -std=c99 -pedantic -Wall -O0 ${INCS} ${CPPFLAGS}
-CFLAGS   = -std=c99 -march=native -ftree-vectorize -flto -Og -msse3 -fopenmp -pipe -pedantic -Wall -Wno-unused-function -Wno-deprecated-declarations -fcf-protection -fpie -fstack-clash-protection -D_FORTIFY_SOURCE=3 -fpic -shared ${INCS} ${CPPFLAGS}
+CFLAGS   = -std=c99 -march=native -ftree-vectorize -O3 -msse3 -fopenmp -ftracer -fipa-cp -fipa-pta -funroll-loops -floop-interchange -floop-strip-mine -fgcse-after-reload -finline-functions -pipe -pedantic -Wall -Wno-unused-function -Wno-deprecated-declarations -fcf-protection -fpie -fstack-clash-protection -D_FORTIFY_SOURCE=3 -fpic ${INCS} ${CPPFLAGS}
 LDFLAGS  = ${LIBS}
 
 # Solaris
