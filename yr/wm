@@ -144,7 +144,14 @@ wideps() { # ignore this
 #            ;;
 
 	"Arch") 
-            sudo pacman -S base-devel cairo libx11 libxft libxinerama git python pango pkgconf gobject-introspection lf xsel htop brightnessctl redshift rxvt-unicode rofi nvim libwnck3 yajl freetype2 shotgun xorg-xclipboard terminus-font ueberzug tmux webkit2gtk-4.1 gcr tmux xorg-xsetroot  --noconfirm
+        sudo pacman -S base-devel cairo libx11 libxft libxinerama git python pango pkgconf gobject-introspection lf xsel htop brightnessctl redshift rxvt-unicode rofi nvim libwnck3 yajl freetype2 shotgun xorg-xclipboard terminus-font ueberzug tmux webkit2gtk-4.1 gcr tmux xorg-xsetroot  --noconfirm
+	    git clone https://aur.archlinux.org/yay.git
+	    cd yay/ 
+	    makepkg -si 
+	    yay -S warpd-git dmenufm-git bluetuith-git nitrogen dmenu-frecency pulsemixer pasystray-git hacksaw-git shotgun --noconfirm 
+            ;;
+	"Artix") 
+        sudo pacman -S base-devel cairo libx11 libxft libxinerama git python pango pkgconf gobject-introspection lf xsel htop brightnessctl redshift rxvt-unicode rofi nvim libwnck3 yajl freetype2 terminus-font ueberzug tmux webkit2gtk-4.1 gcr tmux xorg-xsetroot  --noconfirm
 	    git clone https://aur.archlinux.org/yay.git
 	    cd yay/ 
 	    makepkg -si 
@@ -216,7 +223,7 @@ case "$1" in
 
     -g)
 	
-	URL=$(echo -e "" | dmenu -i -f -fn 'Terminus:pixelsize=10' -nb black -nf white -sb white -sf black -p "::git")
+	URL=$(echo -e "" | dmenu -i -f -fn "$FONT" -nb black -nf white -sb white -sf black -p "::git")
 	notify-send "GIT: '$URL'"
 	
 	if [ -z "$URL" ]; then
@@ -260,18 +267,20 @@ case "$1" in
 	-d)
 
 
+    FONT="Terminus:pixelsize=10:antialias=true"
+
 	MONITOR=$(xrandr --query | grep " connected" | awk '{print $1}')
 	PRIMARY=$(xrandr --query | grep " connected primary" | awk '{print $1}')
 	
-	SEL=$(echo "$MONITOR" | dmenu -i -fn 'Terminus:pixelsize=10:antialias=true' -nb black -nf white -sb white -sf black -p "::disp")
+	SEL=$(echo "$MONITOR" | dmenu -i -fn "$FONT" -nb black -nf white -sb white -sf black -p "::disp")
 	[ -z "$SEL" ] && exit 0
 	
-	ACTION=$(echo -e "direction\nref.rate\nscale" | dmenu -i -fn 'Terminus:pixelsize=10:antialias=true' -nb black -nf white -sb white -sf black -p "::action")
+	ACTION=$(echo -e "direction\nref.rate\nscale" | dmenu -i -fn "$FONT" -nb black -nf white -sb white -sf black -p "::action")
 	[ -z "$ACTION" ] && exit 0
 	
 	case "$ACTION" in
 	    direction)
-	        POSITION=$(echo -e "Left\nRight\nAbove\nBelow\nMirror\nOnly" | dmenu -i -fn 'Terminus:pixelsize=10:antialias=true' -nb black -nf white -sb white -sf black -p "::pos")
+	        POSITION=$(echo -e "Left\nRight\nAbove\nBelow\nMirror\nOnly" | dmenu -i -fn "$FONT" -nb black -nf white -sb white -sf black -p "::pos")
 	        [ -z "$POSITION" ] && exit 0
 	        case "$POSITION" in
 	            Left|Right|Above|Below) xrandr --output "$SEL" --auto "--${POSITION,,}-of" "$PRIMARY" ;;
@@ -282,17 +291,17 @@ case "$1" in
 	    "ref.rate")
 	        RATES=$(xrandr --query | grep -A 100 "^$SEL connected" | grep -oP '\d+\.\d+(?=\*)?' | sort -u)
 	        [ -z "$RATES" ] && exit 0
-	        RATE=$(echo "$RATES" | dmenu -i -fn 'Terminus:pixelsize=10' -nb black -nf white -sb white -sf black -p "::rate")
+	        RATE=$(echo "$RATES" | dmenu -i -fn "$FONT" -nb black -nf white -sb white -sf black -p "::rate")
 	        [ -z "$RATE" ] && exit 0
 	        xrandr --output "$SEL" --rate "$RATE"
 	        ;;
 	    scale)
-	        SCALE_OPTION=$(echo -e "custom\n0.5x\n0.75x\n1.0x (Normal)\n1.25x\n1.5x\n2.0x" | dmenu -i -fn 'Terminus:pixelsize=10:antialias=true' -nb black -nf white -sb white -sf black -p "::scale")
+	        SCALE_OPTION=$(echo -e "custom\n0.5x\n0.75x\n1.0x (Normal)\n1.25x\n1.5x\n2.0x" | dmenu -i -fn "$FONT" -nb black -nf white -sb white -sf black -p "::scale")
 	        [ -z "$SCALE_OPTION" ] && exit 0
 	        
 	        case "$SCALE_OPTION" in
 	            "custom value")
-	                CUSTOM=$(echo "" | dmenu -i -fn 'Terminus:pixelsize=10:antialias=true' -nb black -nf white -sb white -sf black -p "::value")
+	                CUSTOM=$(echo "" | dmenu -i -fn "$FONT" -nb black -nf white -sb white -sf black -p "::value")
 	                [ -z "$CUSTOM" ] && exit 0
 	                xrandr --output "$SEL" --scale "$CUSTOM"
 	                ;;
@@ -307,20 +316,20 @@ case "$1" in
 
     -b)
 	#while true; do
-	    QRY=$(echo "" | dmenu -i -fn 'Terminus:pixelsize=10:antialias=true' -nb black -nf white -sb white -sf black -p "::url")
+	    QRY=$(echo "" | dmenu -i -fn "$FONT" -nb black -nf white -sb white -sf black -p "::url")
 	
 	    if [[ ! -z $QRY ]]; then
 	        if echo "$QRY" | grep -qE "^(http|https)://"; then
-	    	    TOROPT=$(echo -e "clearweb\ntor" | dmenu -i -fn 'Terminus:pixelsize=10:antialias=true' -nb black -nf white -sb white -sf black -p "::brw")
+	    	    TOROPT=$(echo -e "clearweb\ntor" | dmenu -i -fn "$FONT" -nb black -nf white -sb white -sf black -p "::brw")
 	            if [[ "$TOROPT" == "tor" ]]; then
 	                torb "$QRY" &
 	            else
 	                $LABYRWEB "$QRY" &
 	            fi
 	        else
-	            OPT4WB="$(echo -e "src\nurl" | dmenu -i -fn 'Terminus:pixelsize=10:antialias=true' -nb black -nf white -sb white -sf black -p "::opt")"
+	            OPT4WB="$(echo -e "src\nurl" | dmenu -i -fn "$FONT" -nb black -nf white -sb white -sf black -p "::opt")"
 	            if [[ $OPT4WB == "src" ]]; then
-			TOROPT=$(echo -e "clearweb\ntor" | dmenu -i -fn 'Terminus:pixelsize=10:antialias=true' -nb black -nf white -sb white -sf black -p "::brw")
+			TOROPT=$(echo -e "clearweb\ntor" | dmenu -i -fn "$FONT" -nb black -nf white -sb white -sf black -p "::brw")
 	                if [[ "$TOROPT" == "tor" ]]; then
 	                    torb "https://duckduckgo.com/search?q=$(echo "$QRY" | tr ' ' '+')" &
 	                else
@@ -368,22 +377,22 @@ case "$1" in
 	"
 	
 	OBJ_LENGTH=$(echo $OPTIONS | jq length)
-	OBJ_MENU=$(echo $OPTIONS | jq -r ".[][0]" | dmenu -i -fn 'Terminus:pixelsize=10:antialias=true' -nb black -nf white -sb white -sf black -p "::src")
-	OBJ_QRY=$(echo "" | dmenu -i -fn 'Terminus:pixelsize=10' -nb black -nf white -sb white -sf black -p "::query")
+	OBJ_MENU=$(echo $OPTIONS | jq -r ".[][0]" | dmenu -i -fn "$FONT" -nb black -nf white -sb white -sf black -p "::src")
+	OBJ_QRY=$(echo "" | dmenu -i -fn "$FONT" -nb black -nf white -sb white -sf black -p "::query")
 	OBJ_KEYWORDS=$(echo "$OBJ_QRY" | tr " " "+")
 	OBJ_SELECTED=$(echo "$OBJ_MENU" | cut -d' ' -f1)
 	
 	main() {
 	    for i in $(seq 0 $((OBJ_LENGTH - 1))); do
 	        if [ "$OBJ_SELECTED" = "+" ]; then
-	            PREFIXMENU=$(echo "" | dmenu -i -fn 'Terminus:pixelsize=10:antialias=true' -nb black -nf white -sb white -sf black -p "::prfx[a]" <&-)
-	            URLQUERY=$(echo "" | dmenu -fn 'Terminus:pixelsize=10:antialias=true' -nb black -nf white -sb white -sf black -p "::url[b]" <&-)
+	            PREFIXMENU=$(echo "" | dmenu -i -fn "$FONT" -nb black -nf white -sb white -sf black -p "::prfx[a]" <&-)
+	            URLQUERY=$(echo "" | dmenu -fn "$FONT" -nb black -nf white -sb white -sf black -p "::url[b]" <&-)
 	            if [ ! -z "$PREFIXMENU" ]; then
 	                echo "[ \"$PREFIXMENU\", \"$URLQUERY\" ]," >> $FILE
 	            fi
 	
 	        elif [ "$OBJ_SELECTED" = "-" ]; then
-	            OBJ_MENU=$(echo "$OPTIONS" | jq -r ".[][0]" | head -n -2 | dmenu -fn 'Terminus:pixelsize=10:antialias=true' -nb black -nf white -sb white -sf black -i -p "::del")
+	            OBJ_MENU=$(echo "$OPTIONS" | jq -r ".[][0]" | head -n -2 | dmenu -fn "$FONT" -nb black -nf white -sb white -sf black -i -p "::del")
 	            sed -i "/$OBJ_MENU/d" $FILE
 	        fi
 	        
@@ -458,15 +467,16 @@ case "$1" in
 	   ;; 
 
    -P) 
-	   OPT=$(echo "" | dmenu -fn 'Terminus:pixelsize=10' -nb black -nf white -sb white -sf black -i -p "::del")
+	   OPT=$(echo "" | dmenu -fn "$FONT" -nb black -nf white -sb white -sf black -i -p "::del")
 	   if [[ -z $QRY ]]; then
 		   $LABYRTERM -e $PKGMAN $QRY 
 	   fi
 	   ;;
    
    -pk) 
-         sudo cp -rv /usr/bin/wm $WIDIR/yr/
-         sudo cp -rv /usr/bin/lb $WIDIR/yr/
+
+     sudo cp -rv /usr/bin/wm $WIDIR/yr/
+     sudo cp -rv /usr/bin/lb $WIDIR/yr/
 	 cp -rv ~/.config/sxhkd/* $WIDIR/xk/
 	 cp -rv ~/.config/warpd/config $WIDIRCFGDIR/warpd.config
 	 cp -rv ~/.config/hints/config.json $WIDIRCFGDIR/config.hints.json
@@ -498,7 +508,7 @@ case "$1" in
 	 cd $WIDIR/src/xtr/surf/ && make -j$CORECOUNT && sudo make install
 	 cd $WIDIR/src/xtr/surf/wyebadblock/ && make -j4 && sudo make install
 	 sudo mkdir /usr/local/lib/surf && sudo ln -s /usr/lib/wyebrowser/adblock.so /usr/local/lib/surf
-	 cd $WIDIR
+
 	 mkdir -p $HOME/.config/nhk
 	 sudo cp -rv $WIDIR/yr/lb /usr/bin 
 	 sudo cp -rv $WIDIR/yr/wm /usr/bin 
@@ -514,20 +524,21 @@ case "$1" in
 	 mkdir -p ~/.config/warpd/
 	 cp -rv $WIDIRCFGDIR/warpd.config ~/.config/warpd/config 
 	 mkdir -p ~/.config/sxhkd && cp -rv $WIDIR/xk/* ~/.config/sxhkd/
-	 cd $WIDIR
+
 	 mkdir -p ~/.config/mimi 
 	 cp -rv $WIDIRCFGDIR/mimi.conf ~/.config/mimi/mime.conf
 	 mkdir -p ~/.local/bin 
-	 cp -rv xt/foxtag ~/.local/bin/
-	 cp -rv xt/wiconv ~/.local/bin/
-         cp -rv xt/slmenu ~/.local/bin/
+	 cp -rv $WIDIR/xt/foxtag ~/.local/bin/
+	 cp -rv $WIDIR/xt/wiconv ~/.local/bin/
+     cp -rv $WIDIR/xt/slmenu ~/.local/bin/
 	 cp -rv $WIDIRCFGDIR/.Xresources_nhk $HOME/
 	 xrdb -merge ~/.Xresources_nhk
 	 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 	 cp -rv $WIDIRCFGDIR/.nhktx.conf ~/
 	 tmux source-file ~/.nhktx.conf
 	 cd $WIDIR/src
-         sudo make clean install
+
+     sudo make clean install
 	 sudo mkdir -p /usr/share/xsessions/ 
 	 sudo cp -rv $WIDIR/src/nhk.desktop /usr/share/xsessions/
 	 sudo chmod +x patch/dwmc
@@ -537,7 +548,7 @@ case "$1" in
 
    -rb)
 	 cd $WIDIR/src
-         sudo make clean install
+     sudo make clean install
 	 sudo mkdir -p /usr/share/xsessions/
 	 sudo cp -rv $WIDIR/src/nhk.desktop /usr/share/xsessions/
 	 cd $WIDIR
@@ -545,10 +556,10 @@ case "$1" in
 
    -EE)
 
-     if [[ $# -gt 1 ]]; then
-	$LABYREDIT "${@:2}" 
-     else 
-	sudo $LABYREDIT $(which wm) 
+    if [[ $# -gt 1 ]]; then
+        $LABYREDIT "${@:2}" 
+    else 
+        sudo $LABYREDIT $(which wm) 
      fi
 
      ;;
