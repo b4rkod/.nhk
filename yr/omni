@@ -1,0 +1,154 @@
+#!/usr/bin/env bash
+terminal="wm -t"
+pkmandet() {
+  local assume=${1:-} id id_like
+  [ "$assume" = "--assume" ] || {
+    for c in apt dnf yum pacman zypper apk xbps emerge pkg brew choco scoop; do
+      command -v "$c" >/dev/null 2>&1 && { echo "$c"; return 0; }
+    done
+  }
+
+  [ -r /etc/os-release ] || { grep -qi microsoft /proc/version 2>/dev/null && { echo wsl; return 0; } ; echo unknown; return 0; }
+  . /etc/os-release
+  id="${ID,,}"; id_like="${ID_LIKE,,}"
+
+  case "$id:$id_like" in
+    *debian*:*|*:debian*|*ubuntu*:*|*:ubuntu*) echo apt;;
+    *fedora*:*|*:fedora*|*rhel*:*|*:rhel*|*centos*:*|*:centos*|*rocky*:*|*:rocky*|*alma*:*|*:alma*) echo dnf;;
+    *arch*:*|*:arch*|*manjaro*:*|*:manjaro*) echo pacman;;
+    *suse*:*|*:suse*|*opensuse*:*|*:opensuse*) echo zypper;;
+    *alpine*:*|*:alpine*) echo apk;;
+    *void*:*|*:void*) echo xbps;;
+    *gentoo*:*|*:gentoo*) echo emerge;;
+    *freebsd*:*|*:freebsd*) echo pkg;;
+    *) grep -qi microsoft /proc/version 2>/dev/null && echo wsl || echo unknown;;
+  esac
+}
+
+pkmandet "$@"
+
+pkgi() {
+  local pkgmgr="$(pkmandet)"
+  local packages="$@"
+  
+  case "$pkgmgr" in
+    apt)     $terminal sudo apt-get install -y $packages ;;
+    dnf)     $terminal sudo dnf install -y $packages ;;
+    yum)     $terminal sudo yum install -y $packages ;;
+    pacman)  $terminal sudo pacman -Sy $packages --noconfirm ;;
+    zypper)  $terminal sudo zypper install -y $packages ;;
+    apk)     $terminal sudo apk add $packages ;;
+    xbps)    $terminal sudo xbps-install -y $packages ;;
+    emerge)  $terminal sudo emerge $packages ;;
+    pkg)     $terminal sudo pkg install -y $packages ;;
+    brew)    $terminal brew install $packages ;;
+    choco)   $terminal choco install -y $packages ;;
+    scoop)   $terminal scoop install $packages ;;
+    *)       $terminal echo "Unknown package manager: $pkgmgr"; return 1 ;;
+  esac
+}
+
+pkgr() {
+  local pkgmgr="$(pkmandet)"
+  local packages="$@"
+  
+  case "$pkgmgr" in
+    apt)     $terminal sudo apt-get remove -y $packages ;;
+    dnf)     $terminal sudo dnf remove -y $packages ;;
+    yum)     $terminal sudo yum remove -y $packages ;;
+    pacman)  $terminal sudo pacman -R $packages --noconfirm ;;
+    zypper)  $terminal sudo zypper remove -y $packages ;;
+    apk)     $terminal sudo apk del $packages ;;
+    xbps)    $terminal sudo xbps-remove -y $packages ;;
+    emerge)  $terminal sudo emerge --unmerge $packages ;;
+    pkg)     $terminal sudo pkg delete -y $packages ;;
+    brew)    $terminal brew uninstall $packages ;;
+    choco)   $terminal choco uninstall -y $packages ;;
+    scoop)   $terminal scoop uninstall $packages ;;
+    *)       $terminal echo "Unknown package manager: $pkgmgr"; return 1 ;;
+  esac
+}
+
+pkgs() {
+  local pkgmgr="$(pkmandet)"
+  local packages="$@"
+  
+  case "$pkgmgr" in
+    apt)     $terminal apt search $packages ;;
+    dnf)     $terminal dnf search $packages ;;
+    yum)     $terminal yum search $packages ;;
+    pacman)  $terminal pacman -Ss $packages ;;
+    zypper)  $terminal zypper search $packages ;;
+    apk)     $terminal apk search $packages ;;
+    xbps)    $terminal xbps-query -Rs $packages ;;
+    emerge)  $terminal emerge --search $packages ;;
+    pkg)     $terminal pkg search $packages ;;
+    brew)    $terminal brew search $packages ;;
+    choco)   $terminal choco search $packages ;;
+    scoop)   $terminal scoop search $packages ;;
+    *)       $terminal echo "Unknown package manager: $pkgmgr"; return 1 ;;
+  esac
+}
+
+pkgu() {
+  local pkgmgr="$(pkmandet)"
+  
+  case "$pkgmgr" in
+    apt)     $terminal sudo apt-get update && sudo apt-get upgrade -y ;;
+    dnf)     $terminal sudo dnf upgrade -y ;;
+    yum)     $terminal sudo yum update -y ;;
+    pacman)  $terminal sudo pacman -Syyu --noconfirm ;;
+    zypper)  $terminal sudo zypper update -y ;;
+    apk)     $terminal sudo apk upgrade ;;
+    xbps)    $terminal sudo xbps-install -Su ;;
+    emerge)  $terminal sudo emerge --update --deep @world ;;
+    pkg)     $terminal sudo pkg upgrade -y ;;
+    brew)    $terminal brew upgrade ;;
+    choco)   $terminal choco upgrade all -y ;;
+    scoop)   $terminal scoop update * ;;
+    *)       $terminal echo "Unknown package manager: $pkgmgr"; return 1 ;;
+  esac
+}
+
+PKGMGR=$(pkmandet)
+
+FNCS="update\ninstall\nremove\nsearch"
+
+OPT=$(echo -e $FNCS | dmenu -i -f -fn 'Terminus:pixelsize=10:antialias=true' -nb black -nf white -sb white -sf black -p "::opt")
+
+case $OPT in 
+	"install")
+		PKGQ=$(echo -e "" | dmenu -i -f -fn 'Terminus:pixelsize=10:antialias=true' -nb black -nf white -sb white -sf black -p "::pkgq")
+		if [[ $PKGQ != "" ]]; then
+			pkgi "$PKGQ"
+			return 0 
+		else
+			notify-send "meow" 
+			return 1 
+		fi
+		;;
+	"remove")
+		pkgq=$(echo -e "" | dmenu -i -f -fn 'terminus:pixelsize=10:antialias=true' -nb black -nf white -sb white -sf black -p "::pkgq")
+		if [[ $PKGQ != "" ]]; then
+			pkgr "$PKGQ"
+			return 0
+		else
+			notify-send "meow" 
+			return 1 
+		fi
+		;;
+	"search")
+		PKGQ=$(echo -e "" | dmenu -i -f -fn 'terminus:pixelsize=10:antialias=true' -nb black -nf white -sb white -sf black -p "::pkgq")
+		if [[ $PKGQ != "" ]]; then
+			pkgr "$PKGQ"
+		else
+			notify-send "meow" 
+			return 1 
+		fi
+		;;
+	"update")
+		pkgu 
+		return 0
+		;;
+
+esac
