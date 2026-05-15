@@ -101,11 +101,11 @@ static const char *const autostart[] = {
 	"lb", "-v", NULL,
 	"wm", "-w", NULL,
 	"wm", "-t", NULL,
+    "wm", "-T", NULL,
 	"xban", NULL, 
 	"dunst", NULL,
-	"slstatus", NULL,
+	"dwmblocks", NULL,
 	"pasystray", NULL,
-	"wm", "-T", NULL,
 	"hintsd", NULL,
 	"riseup-vpn", NULL, 
 	NULL /* terminate */
