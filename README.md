@@ -9,7 +9,7 @@ TIME: `Nix:/3WK`
 
 ```
 git clone https://github.com/nhkintact/.nhk ~/.nhk
-cd ~/.nhk/yr/ && chmod +x wm && ./wm -upk [arch/artix/debian/fedora/gentoo
+cd ~/.nhk/yr/ && chmod +x wm && ./wm -upk [arch/artix/debian/fedora/gentoo]
 ```
 ![img1](https://github.com/nhkintact/.nhk/blob/main/1778815773.png?raw=true)
 ![img2](https://github.com/nhkintact/.nhk/blob/main/1778815465.png?raw=true)
