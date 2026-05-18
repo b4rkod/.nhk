@@ -1,83 +1,92 @@
-o!/bin/bash
-LABYRTERM="urxvt" 
-#LABYRTERMHOLD="urxvt -hold" 
-LABYRMU="$LABYRTERM -e ncmpcpp"
-LABYREDIT="$LABYRTERM -e nvim"
-LABYRWEB="surf"
-LABYRCHAT="$LABYRTERM -e concord"
-LABYRMAIL="$LABYRTERM -e aerc"
-LABYRFM="$LABYRTERM -e lf"
-#LABYRFM="dmenufm -t -p"
+#!/bin/bash
+
+# ENV
+# Meta
+NHK="$HOME/.nhk"
+NHKCFG="$HOME/.nhk/xt/cfg"
+CORE="2"
+
+# Browser
+WEBDIR="$NHK/.mtn"
+WEBHIST="$WEBDIR/.mtnhist"
+WEBD="$WEBDIR/dwn"
+
+# Applications
+TRM="urxvt" 
+TXT="nvim"
+MU="$TRM -e ncmpcpp"
+WEB="$TRM -cd $WEBD -e w3m"
+IM="$TRM -e concord"
+IX="$TRM -e aerc"
+FM="$TRM -e lf"
 KANATA="$HOME/kanata.kbd"
-WIDIR="$HOME/.nhk"
-WIDIRCFGDIR="$HOME/.nhk/xt/cfg"
-CORECOUNT="2"
 
-
+# Theming
+FONT='Terminus:pixelsize=10:antialias=true'
 
 wideps() { # ignore this 
     case "$1" in
-#        "Gentoo")
-#        sudo emerge --ask dev-vcs/git dev-lang/python dev-python/pipx x11-libs/cairo x11-libs/libx11 x11-libs/libxft x11-libs/libxinerama x11-libs/pango x11-libs/gtk+:4 dev-util/pkgconf gobject-introspection x11-misc/dunst app-arch/p7zip media-gfx/feh sys-apps/lf x11-misc/xsel media-video/mpv media-sound/mpd media-sound/ncmpcpp sys-apps/htop app-misc/redshift x11-terms/rxvt-unicode x11-misc/rofi x11-apps/dmenu x11-misc/slock dev-libs/yajl media-libs/freetype media-gfx/shotgun x11-misc/xclipboard media-fonts/terminus-font x11-misc/ueberzug app-multiplexers/tmux x11-libs/libwnck:3 net-news/newsboat app-editors/neovim x11-apps/xrandr x11-apps/xsetroot media-sound/pulsemixer media-sound/pasystray mail-client/claws-mail media-gfx/shotgun && \
-#	git clone https://github.com/huijunchen9260/dmenufm ~/dmenufm && \
-#	cd ~/dmenufm && \
-#	make && sudo make install && \
-#	cd ~/ && \
-#	git clone https://github.com/rvaiya/warpd.git && \ 
-#	cd warpd/ && \
-#	make && sudo make install && \
-#	cd ~/ && \
-#	rm -rf warpd/ && \
-#	curl -LOS "https://raw.githubusercontent.com/whoisYoges/emojimenu/master/allemojis.txt" && \
-#	curl -LOS "https://raw.githubusercontent.com/whoisYoges/emojimenu/master/emojimenu" && \
-#	chmod +x emojimenu && \
-#	sudo mkdir -p /usr/share/emojimenu && \
-#	sudo mv allemojis.txt /usr/share/emojimenu/allemojis.txt && \
-#	sudo mv emojimenu /usr/local/bin/emojimenu && \
-#	git clone https://github.com/darkhz/bluetuith && \
-#	cd bluetuith && \ 
-#	go build main.go -o bluetuith-bin && \
-#	mv bluetuith-bin /usr/bin/bluetuith && \
-#	cd ~/ && \ 
-#	git clone https://github.com/kspi/dmenu-frecency && \
-#	sudo mv dmenu-frecency/dmenu-frecency /usr/bin/ && \
-#	curl -fsSL https://dwmbar.robinhirst.qzz.io/install.sh | bash && \
-#	cargo install hacksaw && \
-#	echo 'complete. dependencies are installed.'
-#	;;
-#
-#        "Debian")
-#        sudo apt install build-essential libxi-dev libxinerama-dev libxft-dev libxfixes-dev libxtst-dev libx11-dev libcairo2-dev libxkbcommon-dev libwayland-dev xorg-dev xserver-xorg libyajl-dev libpango1.0-dev libpangoxft-1.0-0 libwnck-3-0 libwnck-3-common libfreetype6 libzip2 findutils suckless-tools xclip xz-utils golang wmctrl mpd mpv xsel feh lf ncmpcpp brightnessctl redshift rofi dmenu slock newsboat neovim xinit git libgirepository1.0-dev gcc pkg-config python3-dev gir1.2-gtk-4.0 pipx gtk-layer-shell grim ibpam0g-dev libxcb-xkb-dev xauth claws-mail && \
-#	git clone https://github.com/huijunchen9260/dmenufm ~/dmenufm && \
-#	cd ~/dmenufm && \
-#	make  -j4 && sudo make install && \
-#	cd ~/ && \
-#	git clone https://github.com/rvaiya/warpd.git && \ 
-#	cd warpd/ && \
-#	make -j4 && sudo make install && \
-#	cd ~/ && \
-#	rm -rf warpd/ && \
-#	curl -LOS "https://raw.githubusercontent.com/whoisYoges/emojimenu/master/allemojis.txt" && \
-#	curl -LOS "https://raw.githubusercontent.com/whoisYoges/emojimenu/master/emojimenu" && \
-#	chmod +x emojimenu && \
-#	sudo mkdir -p /usr/share/emojimenu && \
-#	sudo mv allemojis.txt /usr/share/emojimenu/allemojis.txt && \
-#	sudo mv emojimenu /usr/local/bin/emojimenu && \
-#	git clone https://github.com/darkhz/bluetuith && \
-#	cd bluetuith && \ 
-#	go build main.go -o bluetuith-bin && \
-#	mv bluetuith-bin /usr/bin/bluetuith && \
-#	cd ~/ && \ 
-#	git clone https://github.com/kspi/dmenu-frecency && \
-#	sudo mv dmenu-frecency/dmenu-frecency /usr/bin/ && \
-#	curl -fsSL https://dwmbar.robinhirst.qzz.io/install.sh | bash && \
-#	cargo install hacksaw && \
-#	[ $XDG_SESSION_TYPE = "x11" ] sudo apt install && \
-#	pipx ensurepath && \
-#	pipx install git+https://github.com/AlfredoSequeida/hints.git && \
-#	echo 'complete. dependencies are installed.'
-#            ;;
-#
+        "gentoo")
+	        sudo emerge -av dev-build/make dev-util/cmake x11-libs/cairo x11-libs/libx11 x11-libs/libxft x11-libs/libxinerama dev-vcs/git dev-lang/python x11-libs/pango dev-util/pkgconf dev-libs/gobject-introspection app-misc/lf x11-misc/xsel sys-process/htop app-misc/brightnessctl x11-misc/redshift net-p2p/rtorrent x11-terms/rxvt-unicode x11-misc/rofi app-editors/neovim x11-libs/libwnck x11-apps/yajl media-libs/freetype x11-apps/shotgun x11-apps/xclip media-fonts/terminus-font media-gfx/ueberzug app-multiplexers/tmux net-libs/webkit-gtk x11-misc/gcr x11-apps/xsetroot mail-client/aerc --oneshot
+		git clone https://github.com/huijunchen9260/dmenufm ~/dmenufm && \
+		cd ~/dmenufm && \
+		make && sudo make install && \
+		cd ~/ && \
+		git clone https://github.com/rvaiya/warpd.git && \ 
+		cd warpd/ && \
+		make && sudo make install && \
+		cd ~/ && \
+		rm -rf warpd/ && \
+		curl -LOS "https://raw.githubusercontent.com/whoisYoges/emojimenu/master/allemojis.txt" && \
+		curl -LOS "https://raw.githubusercontent.com/whoisYoges/emojimenu/master/emojimenu" && \
+		chmod +x emojimenu && \
+		sudo mkdir -p /usr/share/emojimenu && \
+		sudo mv allemojis.txt /usr/share/emojimenu/allemojis.txt && \
+		sudo mv emojimenu /usr/local/bin/emojimenu && \
+		git clone https://github.com/darkhz/bluetuith && \
+		cd bluetuith && \ 
+		go build main.go -o bluetuith-bin && \
+		mv bluetuith-bin /usr/bin/bluetuith && \
+		cd ~/ && \ 
+		git clone https://github.com/kspi/dmenu-frecency && \
+		sudo mv dmenu-frecency/dmenu-frecency /usr/bin/ && \
+		curl -fsSL https://dwmbar.robinhirst.qzz.io/install.sh | bash && \
+		cargo install hacksaw && \
+		echo 'complete. dependencies are installed.'
+		;;
+
+        "debian")
+		sudo apt install -y build-essential cmake libcairo2-dev libx11-dev libxft-dev libxinerama-dev git python3 libpango-1.0-0 pkg-config libgirepository1.0-dev lf xsel htop brightnessctl redshift rtorrent rxvt-unicode rofi neovim libwnck-3-0 libyajl2 libfreetype6 shotgun xclip fonts-terminus ueberzug tmux libwebkit2gtk-4.1-0 gcr aerc tmux x11-xserver-utils
+		git clone https://github.com/huijunchen9260/dmenufm ~/dmenufm && \
+		cd ~/dmenufm && \
+		make  -j4 && sudo make install && \
+		cd ~/ && \
+		git clone https://github.com/rvaiya/warpd.git && \ 
+		cd warpd/ && \
+		make -j4 && sudo make install && \
+		cd ~/ && \
+		rm -rf warpd/ && \
+		curl -LOS "https://raw.githubusercontent.com/whoisYoges/emojimenu/master/allemojis.txt" && \
+		curl -LOS "https://raw.githubusercontent.com/whoisYoges/emojimenu/master/emojimenu" && \
+		chmod +x emojimenu && \
+		sudo mkdir -p /usr/share/emojimenu && \
+		sudo mv allemojis.txt /usr/share/emojimenu/allemojis.txt && \
+		sudo mv emojimenu /usr/local/bin/emojimenu && \
+		git clone https://github.com/darkhz/bluetuith && \
+		cd bluetuith && \ 
+		go build main.go -o bluetuith-bin && \
+		mv bluetuith-bin /usr/bin/bluetuith && \
+		cd ~/ && \ 
+		git clone https://github.com/kspi/dmenu-frecency && \
+		sudo mv dmenu-frecency/dmenu-frecency /usr/bin/ && \
+		curl -fsSL https://dwmbar.robinhirst.qzz.io/install.sh | bash && \
+		cargo install hacksaw && \
+		[ $XDG_SESSION_TYPE = "x11" ] sudo apt install && \
+		pipx ensurepath && \
+		pipx install git+https://github.com/AlfredoSequeida/hints.git && \
+		echo 'complete. dependencies are installed.'
+            ;;
+
 #        "Fedora")
 #            sudo dnf groupinstall "Development Tools" && sudo dnf install libX11-devel libXft-devel libXinerama-devel xorg-x11-server-Xorg xorg-x11-xinit git gcc gobject-introspection-devel cairo-gobject-devel pkg-config python3-devel gtk4 pipx pasystray kernel-devel pam-devel libxcb-devel zig xorg-x11-xauth xorg-x11-server brightnessctl gtk-layer-shell grim pulsemixer && \ 
 #	    [ $XDG_SESSION_TYPE = "x11" ] && \ 
@@ -141,6 +150,12 @@ wideps() { # ignore this
 	    makepkg -si 
 	    yay -S warpd-git dmenufm-git bluetuith-git nitrogen dmenu-frecency pulsemixer pasystray-git hacksaw-git shotgun --noconfirm 
             ;;
+	"artix") 
+		sudo pacman -S base-devel cairo libx11 libxft libxinerama git python pango pkgconf gobject-introspection lf xsel htop brightnessctl redshift rxvt-unicode rofi nvim libwnck3 yajl freetype2 terminus-font ueberzug tmux webkit2gtk-4.1 gcr tmux xorg-xsetroot  --noconfirm
+		git clone https://aur.archlinux.org/yay.git
+		cd yay/ 
+		makepkg -si 	
+		;;
 #
 #	"DSKIP")
 #		pass	
@@ -156,52 +171,53 @@ case "$1" in
 
     -e)
      if [[ $# -gt 1 ]]; then
-	$LABYREDIT "${@:2}" &
+	$TRM -e $TXT "${@:2}" 
+	fi 
      else 
-	$LABYREDIT &
+	$TXT "${@:2}"
      fi
         ;;
 
     -fm)
 
      if [[ $# -gt 1 ]]; then
-	$LABYRFM "${@:2}" &
+	$FM "${@:2}" &
      else 
-	$LABYRFM &
+	$FM &
      fi
         ;;
 
     -c)
      if [[ $# -gt 1 ]]; then
-	$LABYRCHAT "${@:2}" &
+	$IM "${@:2}" &
      else 
-	$LABYRCHAT &
+	$IM &
      fi
         ;;
 
     -t)
      if [[ $# -gt 1 ]]; then
-	$LABYRTERM -e "${@:2}" &
+	$TRM -e "${@:2}" &
      else 
-	$LABYRTERM &
+	$TRM &
      fi
      ;;
 
     -m) 
 
      if [[ $# -gt 1 ]]; then
-	$LABYRMU -e "${@:2}" &
+	$MU -e "${@:2}" &
      else 
-	$LABYRMU &
+	$MU &
      fi
         ;;
 	
     -M) 
 
      if [[ $# -gt 1 ]]; then
-	$LABYRMAIL -e "${@:2}" &
+	$IX -e "${@:2}" &
      else 
-	$LABYRMAIL &
+	$IX &
      fi
         ;;
 
@@ -219,47 +235,70 @@ case "$1" in
 
 
     -g)
+	FUNC=$(echo -e "clone\nfetch\npull\npush" | dmenu -i -f -fn $FONT -nb black -nf white -sb white -sf black -p "::git")
+	case $FUNC in
+		clone)
+		URL=$(echo -e "" | dmenu -i -f -fn $FONT -nb black -nf white -sb white -sf black -p "::cl")
+		notify-send "GIT: '$URL'"
+		
+		if [ -z "$URL" ]; then
+		    notify-send "GIT: NONE"
+		    exit 1
+		fi
+		
+		REPO=""
+		DIR=""
+		
 	
-	URL=$(echo -e "" | dmenu -i -f -fn 'Terminus:pixelsize=10' -nb black -nf white -sb white -sf black -p "::git")
-	notify-send "GIT: '$URL'"
+		if [[ "$URL" =~ ^https?://(github|gitea|codeberg|gitlab)\.com/(.*)/(.*)\.git$ ]]; then
+		    REPO="${BASH_REMATCH[3]}"   
+		    DIR="${BASH_REMATCH[2]}"    
+		elif [[ "$URL" =~ ^([^/]+)/([^/]+)$ ]]; then
+		    DIR="${BASH_REMATCH[1]}"    
+		    REPO="${BASH_REMATCH[2]}"    
+		    URL="https://github.com/${DIR}/${REPO}.git"  
+		else
+		    notify-send "GIT: [URL] OR [[NAME]/[REPO]]." & 
+		    exit 1
+		fi
+		
+		GITDIR="$(dmenufm -t -p)/$REPO"
+		$TRM -cd $GITDIR -hold
 	
-	if [ -z "$URL" ]; then
-	    notify-send "GIT: NONE"
-	    exit 1
-	fi
-	
-	REPO=""
-	DIR=""
-	
+		if [[ -d "$GITDIR" ]]; then
+		    notify-send "GIT: [DIR_EXI]" &
+		    exit 1
+		fi
+		
+		# Attempt to clone the repository
+		if git clone "$URL" "$GITDIR"; then
+		    notify-send "GIT: $REPO [CLONED]" &
+		else
+		    notify-send "GIT: $REPO [CLFAIL]." & 
+		    exit 1
+		fi
+		;;
 
-	if [[ "$URL" =~ ^https?://(github|gitea|codeberg|gitlab)\.com/(.*)/(.*)\.git$ ]]; then
-	    REPO="${BASH_REMATCH[3]}"   
-	    DIR="${BASH_REMATCH[2]}"    
-	elif [[ "$URL" =~ ^([^/]+)/([^/]+)$ ]]; then
-	    DIR="${BASH_REMATCH[1]}"    
-	    REPO="${BASH_REMATCH[2]}"    
-	    URL="https://github.com/${DIR}/${REPO}.git"  
-	else
-	    notify-send "GIT: [URL] OR [[NAME]/[REPO]]." & 
-	    exit 1
-	fi
-	
-	GITDIR="$(dmenufm -t -p)/$REPO"
-	
+	init)
+		DIR=$(dmenufm -t -p)
+		$TRM -cd $DIR -e git init 
+		;;
+	fetch)
+		DIR="$(dmenufm -t -p)"
+		$TRM -cd $DIR -e git fetch 
+		;;
 
-	if [[ -d "$GITDIR" ]]; then
-	    notify-send "GIT: [DIR_EXI]" &
-	    exit 1
-	fi
-	
-	# Attempt to clone the repository
-	if git clone "$URL" "$GITDIR"; then
-	    notify-send "GIT: $REPO [CLONED]" &
-	else
-	    notify-send "GIT: $REPO [CLFAIL]." & 
-	    exit 1
-	fi
-	;;
+	pull)
+		DIR="$(dmenufm -t -p)"
+		$TRM -cd $DIR -e git pull
+		;;
+
+	push)
+		DIR="$(dmenufm -t -p)"
+		$TRM -cd $DIR -e git pull
+		;;
+       esac
+       ;;
 
 	-d)
 
@@ -267,15 +306,15 @@ case "$1" in
 	MONITOR=$(xrandr --query | grep " connected" | awk '{print $1}')
 	PRIMARY=$(xrandr --query | grep " connected primary" | awk '{print $1}')
 	
-	SEL=$(echo "$MONITOR" | dmenu -i -fn 'Terminus:pixelsize=10:antialias=true' -nb black -nf white -sb white -sf black -p "::disp")
+	SEL=$(echo "$MONITOR" | dmenu -i -fn $FONT -nb black -nf white -sb white -sf black -p "::disp")
 	[ -z "$SEL" ] && exit 0
 	
-	ACTION=$(echo -e "direction\nref.rate\nscale" | dmenu -i -fn 'Terminus:pixelsize=10:antialias=true' -nb black -nf white -sb white -sf black -p "::action")
+	ACTION=$(echo -e "direction\nref.rate\nscale" | dmenu -i -fn $FONT -nb black -nf white -sb white -sf black -p "::action")
 	[ -z "$ACTION" ] && exit 0
 	
 	case "$ACTION" in
 	    direction)
-	        POSITION=$(echo -e "Left\nRight\nAbove\nBelow\nMirror\nOnly" | dmenu -i -fn 'Terminus:pixelsize=10:antialias=true' -nb black -nf white -sb white -sf black -p "::pos")
+	        POSITION=$(echo -e "Left\nRight\nAbove\nBelow\nMirror\nOnly" | dmenu -i -fn $FONT -nb black -nf white -sb white -sf black -p "::pos")
 	        [ -z "$POSITION" ] && exit 0
 	        case "$POSITION" in
 	            Left|Right|Above|Below) xrandr --output "$SEL" --auto "--${POSITION,,}-of" "$PRIMARY" ;;
@@ -286,17 +325,17 @@ case "$1" in
 	    "ref.rate")
 	        RATES=$(xrandr --query | grep -A 100 "^$SEL connected" | grep -oP '\d+\.\d+(?=\*)?' | sort -u)
 	        [ -z "$RATES" ] && exit 0
-	        RATE=$(echo "$RATES" | dmenu -i -fn 'Terminus:pixelsize=10' -nb black -nf white -sb white -sf black -p "::rate")
+	        RATE=$(echo "$RATES" | dmenu -i -fn $FONT -nb black -nf white -sb white -sf black -p "::rate")
 	        [ -z "$RATE" ] && exit 0
 	        xrandr --output "$SEL" --rate "$RATE"
 	        ;;
 	    scale)
-	        SCALE_OPTION=$(echo -e "custom\n0.5x\n0.75x\n1.0x (Normal)\n1.25x\n1.5x\n2.0x" | dmenu -i -fn 'Terminus:pixelsize=10:antialias=true' -nb black -nf white -sb white -sf black -p "::scale")
+	        SCALE_OPTION=$(echo -e "custom\n0.5x\n0.75x\n1.0x (Normal)\n1.25x\n1.5x\n2.0x" | dmenu -i -fn $FONT -nb black -nf white -sb white -sf black -p "::scale")
 	        [ -z "$SCALE_OPTION" ] && exit 0
 	        
 	        case "$SCALE_OPTION" in
 	            "custom value")
-	                CUSTOM=$(echo "" | dmenu -i -fn 'Terminus:pixelsize=10:antialias=true' -nb black -nf white -sb white -sf black -p "::value")
+	                CUSTOM=$(echo "" | dmenu -i -fn $FONT -nb black -nf white -sb white -sf black -p "::value")
 	                [ -z "$CUSTOM" ] && exit 0
 	                xrandr --output "$SEL" --scale "$CUSTOM"
 	                ;;
@@ -310,51 +349,97 @@ case "$1" in
     ;;
 
     -b)
-	
-    if [[ -n "$2" ]]; then
-        QRY="$2"
-    else
-	    OPT="$(echo -e "git\nweb" | dmenu -i -fn 'Terminus:pixelsize=10:antialias=true' -nb black -nf white -sb white -sf black -p "::opt")"
-	if [[ $OPT == "web" ]]; then
-		QRY=$(echo "" | dmenu -i -fn 'Terminus:pixelsize=10:antialias=true' -nb black -nf white -sb white -sf black -p "::url")
-	elif [[ $OPT == "git" ]]; then
-		wm -g
-	fi 
-    fi
 
-    if [[ ! -z $QRY ]]; then
-        if echo "$QRY" | grep -qE "^(http|https)://"; then
-            TOROPT=$(echo -e "tor\ncw" | dmenu -i -fn 'Terminus:pixelsize=10:antialias=true' -nb black -nf white -sb white -sf black -p "::brw")
-            if [[ "$TOROPT" == "tor" ]]; then
-                torb "$QRY" &
-            else
-                $LABYRWEB "$QRY" &
-            fi
-        else
-            OPT4WB="$(echo -e "url\nsrc" | dmenu -i -fn 'Terminus:pixelsize=10:antialias=true' -nb black -nf white -sb white -sf black -p "::opt")"
-            if [[ $OPT4WB == "src" ]]; then
-                TOROPT=$(echo -e "tor\ncw" | dmenu -i -fn 'Terminus:pixelsize=10:antialias=true' -nb black -nf white -sb white -sf black -p "::brw")
-                if [[ "$TOROPT" == "tor" ]]; then
-		    # nhk's metabrowser calls the 4get proxy search engine by default. this search engine does not collect ip addresses, like duckduckgo, so i want this as the default. consider setting up your own 4get instance. 
-                    torb "https://4get.ca/web?s=$(echo "$QRY" | tr ' ' '+')" &
-                else
-                    $LABYRWEB "https://4get.ca/web?s=$(echo "$QRY" | tr ' ' '+')" &
-                fi
-            elif [[ $OPT4WB == "url" ]]; then
-                TOROPT=$(echo -e "tor\ncw" | dmenu -i -fn 'Terminus:pixelsize=10:antialias=true' -nb black -nf white -sb white -sf black -p "::brw")
-                if [[ "$TOROPT" == "tor" ]]; then
-                    torb "https://$QRY" &
-                else
-                    $LABYRWEB "https://$QRY" &
-                fi
-	    else
-		    notify-send "miau."
-            fi
-        fi
-    else 
-        notify-send "meow"
-    fi
-    ;;
+	mtnbrwse() {
+	        mkdir -p $WEBDIR &
+		mkdir -p $WEBD &
+		QRY=$(echo "" | dmenu -i -fn $FONT -nb black -nf white -sb white -sf black -p "::url") 
+	            if [[ ! -z $QRY ]]; then
+	               	    OPT4WB="$(echo -e "url\nsrc" | dmenu -i -fn $FONT -nb black -nf white -sb white -sf black -p "::opt")"
+			    case $OPT4WB in
+				    src)
+	                        	TOROPT=$(echo -e "tor\ncw" | dmenu -i -fn $FONT -nb black -nf white -sb white -sf black -p "::brw")
+	                        	case $TOROPT in
+						tor)
+	                        	    	    torb "https://duckduckgo.com/?q=$(echo "$QRY" | tr ' ' '+')" &
+						    echo $QRY >> $WEBHIST
+						    ;;
+						cw)
+	                        	    	    $WEB "https://duckduckgo.com/?q=$(echo "$QRY" | tr ' ' '+')" &
+						    echo $QRY >> $WEBHIST
+						    ;;
+					esac
+				    ;;
+
+
+
+			           url)
+	                        	TOROPT=$(echo -e "tor\ncw" | dmenu -i -fn $FONT -nb black -nf white -sb white -sf black -p "::brw")
+					case $TOROPT in
+	                        	     tor) 
+	                        	         torb "$QRY" &
+						 echo $QRY >> $WEBHIST
+					         ;;
+				    	     cw)
+	                        	         $WEB "$QRY" &
+						 echo $QRY >> $WEBHIST
+					         ;;
+				 	esac
+					;;
+			   esac
+		    fi
+		}
+
+	
+	OPT="$(echo -e "web\ngit\nim\nem" | dmenu -i -fn $FONT -nb black -nf white -sb white -sf black -p "::opt")"
+	case "$OPT" in
+	    "web")
+		OPTW="$(echo -e "+\nhist\nbkm\nck" | dmenu -i -fn $FONT -nb black -nf white -sb white -sf black -p "::opt")"
+		case "$OPTW" in 
+			hist)
+			    OPTHIST="$(echo -e "$(awk '{ printf "%s\\n",$1 }' $WEBHIST)" | dmenu -i -fn $FONT -nb black -nf white -sb white -sf black -p ::hist)"
+	            	    if [[ ! -z $OPTHIST ]]; then
+				    $WEB $OPTHIST
+			    else
+				    exit
+			    fi
+			    ;;
+			"+")
+			    mtnbrwse
+			    ;;
+	       		esac
+
+			;;
+	    "im")
+	        wm -c
+	        ;;
+	    "git")
+	        wm -g
+	        ;;
+	    "em")
+	        EM=$(echo -e "snd\nrcv" | dmenu -i -fn $FONT -nb black -nf white -sb white -sf black -p "::em")
+	        case "$EM" in
+	            snd)
+	                SEND=$(echo "" | dmenu -i -fn $FONT -nb black -nf white -sb white -sf black -p "->")
+	                $IX mailto:"$SEND"
+	                ;;
+	            rcv)
+	                RECV=$(echo -e "acc\nmx" | dmenu -i -fn $FONT -nb black -nf white -sb white -sf black -p "<-")
+	                case "$RECV" in
+	                    acc)
+	                        ACC=$(echo "" | dmenu -i -fn $FONT -nb black -nf white -sb white -sf black -p "::acc")
+	                        $IX -a $ACC
+	                        ;;
+	                    mx)
+	                        MX=$(dmenufm -t -p)
+	                        $IX -e mbox:"$MX"
+	                        ;;
+	                esac
+	                ;;
+	        esac
+	        ;;
+	esac
+	    ;;
 
     -w)
 	# will later be replaced by a feh-based wallpaper setting function.
@@ -362,7 +447,7 @@ case "$1" in
         ;;
 
     -se)
-	FILE="$HOME/.config/widow/.urlquery"
+	FILE="$HOME/.config/nhk/.urlquery"
 	
 	if [ ! -f $FILE ]; then
 	    touch $FILE
@@ -379,22 +464,22 @@ case "$1" in
 	"
 	
 	OBJ_LENGTH=$(echo $OPTIONS | jq length)
-	OBJ_MENU=$(echo $OPTIONS | jq -r ".[][0]" | dmenu -i -fn 'Terminus:pixelsize=9.5:antialias=true' -nb black -nf white -sb white -sf black -p "::src")
-	OBJ_QRY=$(echo "" | dmenu -i -fn 'Terminus:pixelsize=10' -nb black -nf white -sb white -sf black -p "::query")
+	OBJ_MENU=$(echo $OPTIONS | jq -r ".[][0]" | dmenu -i -fn $FONT -nb black -nf white -sb white -sf black -p "::src")
+	OBJ_QRY=$(echo "" | dmenu -i -fn $FONT -nb black -nf white -sb white -sf black -p "::query")
 	OBJ_KEYWORDS=$(echo "$OBJ_QRY" | tr " " "+")
 	OBJ_SELECTED=$(echo "$OBJ_MENU" | cut -d' ' -f1)
 	
-	main() {
+	wikihntr() {
 	    for i in $(seq 0 $((OBJ_LENGTH - 1))); do
 	        if [ "$OBJ_SELECTED" = "+" ]; then
-	            PREFIXMENU=$(echo "" | dmenu -i -fn 'Terminus:pixelsize=9.5:antialias=true' -nb black -nf white -sb white -sf black -p "::prfx[a]" <&-)
-	            URLQUERY=$(echo "" | dmenu -fn 'Terminus:pixelsize=9.5:antialias=true' -nb black -nf white -sb white -sf black -p "::url[b]" <&-)
+	            PREFIXMENU=$(echo "" | dmenu -i -fn $FONT -nb black -nf white -sb white -sf black -p "::prfx[a]" <&-)
+	            URLQUERY=$(echo "" | dmenu -fn $FONT -nb black -nf white -sb white -sf black -p "::url[b]" <&-)
 	            if [ ! -z "$PREFIXMENU" ]; then
 	                echo "[ \"$PREFIXMENU\", \"$URLQUERY\" ]," >> $FILE
 	            fi
 	
 	        elif [ "$OBJ_SELECTED" = "-" ]; then
-	            OBJ_MENU=$(echo "$OPTIONS" | jq -r ".[][0]" | head -n -2 | dmenu -fn 'Terminus:pixelsize=10:antialias=true' -nb black -nf white -sb white -sf black -i -p "::del")
+	            OBJ_MENU=$(echo "$OPTIONS" | jq -r ".[][0]" | head -n -2 | dmenu -fn $FONT -nb black -nf white -sb white -sf black -i -p "::del")
 	            sed -i "/$OBJ_MENU/d" $FILE
 	        fi
 	        
@@ -406,15 +491,15 @@ case "$1" in
 	    done
 	}
 	
-	main
+	wikihntr
 	;;
 
     -sf)
 	
         shotgun - | xclip -selection clipboard -t image/png
         filename=${filename:-$(date +%s)} && \
-        mkdir -p $WIDIR/s/
-        shotgun $WIDIR/s/"$filename.png"
+        mkdir -p $NHK/s/
+        shotgun $NHK/s/"$filename.png"
         ;;
 
     -ss)
@@ -422,14 +507,14 @@ case "$1" in
         selection=$(hacksaw -f "-i %i -g %g")
         shotgun $selection - | xclip -selection clipboard -t image/png
         filename=${filename:-$(date +%s)} && \
-        mkdir -p $WIDIR/s/
-        shotgun $selection $WIDIR/s/"$filename.png"
+        mkdir -p $NHK/s/
+        shotgun $selection $NHK/s/"$filename.png"
         ;;
 
 
    -sv)
 
-    	dir=$WIDIR/widow/s/video/
+    	dir=$NHK/widow/s/video/
     	current=$(date +%F_%H-%M-%S)
     	
     	mkdir -p "$dir"
@@ -439,7 +524,7 @@ case "$1" in
     	    w=$((w + w % 2))
     	    h=$((h + h % 2))
     	
-    	    $LABYRTERM -e ffmpeg \
+    	    $TRM -e ffmpeg \
     	        -v 16            \
     	        -r 30            \
     	        -f x11grab       \
@@ -457,126 +542,123 @@ case "$1" in
 
    -ar)
 
-   	   directory=$WIDIR/ar/
+   	   directory=$NHK/ar/
    	   date=$(date +%F_%H-%M-%S)
 	   mkdir -p $directory
-           $LABYRTERM -e ffmpeg -f pulse -i default "$directory/$date".wav
+           $TRM -e ffmpeg -f pulse -i default "$directory/$date".wav
 
     	;;
 
    -T) 
-	   wm -t $LABYREDIT $WIDIR/src/.nhktutorial & 
+	   wm -t $TXT $NHK/src/.nhktutorial & 
 	   ;; 
    
    -pk) 
-         sudo cp -rv /usr/bin/wm $WIDIR/yr/
-         sudo cp -rv /usr/bin/lb $WIDIR/yr/
-	 cp -rv ~/.config/sxhkd/* $WIDIR/xk/
-	 cp -rv ~/.config/warpd/config $WIDIRCFGDIR/warpd.config
-	 cp -rv ~/.config/hints/config.json $WIDIRCFGDIR/config.hints.json
-	 cp -rv ~/.config/dunst/dunstrc $WIDIRCFGDIR/
-	 cp -rv ~/.config/polybar/config.ini $WIDIRCFGDIR/polybar.config.ini
-	 cp -rv ~/.local/bin/foxtag $WIDIRCFGDIR/
-	 cp -rv ~/.config/dmenu-frecency/config.json $WIDIRCFGDIR/dmenu-frecency.config.json
-	 cp -rv ~/.config/polybar/config.ini $WIDIRCFGDIR/polybar.config.ini 
-	 cp -rv ~/.Xresources_nhk $WIDIRCFGDIR/
-	 cp -rv ~/.config/lf/lfrc $WIDIRCFGDIR/
-	 cp -rv ~/.config/mimi/mime.conf $WIDIRCFGDIR/
-	 cp -rv ~/.nhktx.conf $WIDIRCFGDIR/
-	 cp -rv ~/.local/bin/lfp $WIDIRCFGDIR/
-	 cp -rv ~/.local/bin/foxtag $WIDIR/xt/
-	 cp -rv ~/.local/bin/wiconv $WIDIR/xt/
-	 cp -rv ~/.local/bin/slmenu $WIDIR/xt/
-	 cp -rv ~/.config/hints/config.json $WIDIRCFGDIR/config.hints.json 
+         sudo cp -rv $HOME/.local/bin/wm $NHK/yr/
+         sudo cp -rv $HOME/.local/bin/lb $NHK/yr/
+	 cp -rv ~/.config/sxhkd/* $NHK/xk/
+	 cp -rv ~/.config/warpd/config $NHKCFG/warpd.config
+	 cp -rv ~/.config/hints/config.json $NHKCFG/config.hints.json
+	 cp -rv ~/.config/dunst/dunstrc $NHKCFG/
+	 cp -rv ~/.config/polybar/config.ini $NHKCFG/polybar.config.ini
+	 cp -rv ~/.local/bin/foxtag $NHKCFG/
+	 cp -rv ~/.config/dmenu-frecency/config.json $NHKCFG/dmenu-frecency.config.json
+	 cp -rv ~/.config/polybar/config.ini $NHKCFG/polybar.config.ini 
+	 cp -rv ~/.Xresources_nhk $NHKCFG/
+	 cp -rv ~/.config/lf/lfrc $NHKCFG/
+	 cp -rv ~/.config/mimi/mime.conf $NHKCFG/
+	 cp -rv ~/.nhktx.conf $NHKCFG/
+	 cp -rv ~/.local/bin/lfp $NHKCFG/
+	 cp -rv ~/.local/bin/foxtag $NHK/xt/
+	 cp -rv ~/.local/bin/wiconv $NHK/xt/
+	 cp -rv ~/.local/bin/slmenu $NHK/xt/
+	 cp -rv ~/.config/hints/config.json $NHKCFG/config.hints.json 
 	 ;;
 
   -upk)  
 	 wideps $2
 	
-   	 cd $WIDIR/src/xtr
-	 cd $WIDIR/src/xtr/dmenu/ && make -j$CORECOUNT && sudo make install
-	 cd $WIDIR/src/xtr/lock/ && make -j4$CORECOUNT && sudo make install
-	 cd $WIDIR/src/xtr/nsxiv/ && make -j$CORECOUNT && sudo make install
-	 cd $WIDIR/src/xtr/dunst/ && make -j$CORECOUNT && sudo make install
-	 cd $WIDIR/src/xtr/sxhkd/ && make -j$CORECOUNT && sudo make install
-	 cd $WIDIR/src/xtr/dwmblocks/ && make -j$CORECOUNT  && sudo make install
-	 cd $WIDIR/src/xtr/surf/ && make -j$CORECOUNT  && sudo make install
-	 cd $WIDIR/src/xtr/surf/wyebadblock/ && make -j$CORECOUNT && sudo make install
+   	 cd $NHK/src/xtr
+	 cd $NHK/src/xtr/dmenu/ && make -j$CORE && sudo make install
+	 cd $NHK/src/xtr/lock/ && make -j4$CORE && sudo make install
+	 cd $NHK/src/xtr/nsxiv/ && make -j$CORE && sudo make install
+	 cd $NHK/src/xtr/dunst/ && make -j$CORE && sudo make install
+	 cd $NHK/src/xtr/sxhkd/ && make -j$CORE && make clean && make && sudo make install
+	 cd $NHK/src/xtr/dwmblocks/ && make -j$CORE && sudo make install
+	 cd $NHK/src/xtr/surf/ && make -j$CORE  && sudo make install
+	 cd $NHK/src/xtr/surf/wyebadblock/ && make -j$CORE && sudo make install
 	 sudo mkdir /usr/local/lib/surf && sudo ln -s /usr/lib/wyebrowser/adblock.so /usr/local/lib/surf
-	 cd $WIDIR
+	 cd $NHK
 	 mkdir -p $HOME/.config/nhk
-	 sudo cp -rv $WIDIR/yr/lb /usr/bin 
-	 sudo cp -rv $WIDIR/yr/wm /usr/bin 
-	 sudo cp -rv $WIDIR/yr/omni /usr/bin 
-	 sudo chmod +x /usr/bin/wm 
-	 sudo chmod +x /usr/bin/lb 
-	 sudo chmod +x /usr/bin/omni
+	 cp -rv $NHK/yr/lb $HOME/.local/bin/
+	 cp -rv $NHK/yr/wm $HOME/.local//bin 
+	 cp -rv $NHK/yr/omni $HOME/.local//bin 
+	 chmod +x /usr/bin/wm 
+	 chmod +x /usr/bin/lb 
+	 chmod +x /usr/bin/omni
 	 mkdir -p ~/.config/polybar/
 	 mkdir -p ~/.config/dmenu-frecency/ 
-	 cp -rv $WIDIRCFGDIR/dmenu-frecency.config.json ~/.config/dmenu-frecency/config.json
+	 cp -rv $NHKCFG/dmenu-frecency.config.json ~/.config/dmenu-frecency/config.json
 	 mkdir -p ~/.config/dunst/
-	 cp -rv $WIDIRCFGDIR/dunstrc ~/.config/dunst/
+	 cp -rv $NHKCFG/dunstrc ~/.config/dunst/
 	 mkdir -p ~/.config/hints/
-	 cp -rv $WIDIRCFGDIR/config.hints.json ~/.config/hints/config.json
+	 cp -rv $NHKCFG/config.hints.json ~/.config/hints/config.json
 	 mkdir -p ~/.config/warpd/
-	 cp -rv $WIDIRCFGDIR/warpd.config ~/.config/warpd/config 
-	 mkdir -p ~/.config/sxhkd && cp -rv $WIDIR/xk/* ~/.config/sxhkd/
-	 cd $WIDIR
+	 cp -rv $NHKCFG/warpd.config ~/.config/warpd/config 
+	 mkdir -p ~/.config/sxhkd && cp -rv $NHK/xk/* ~/.config/sxhkd/
+	 cd $NHK
 	 mkdir -p ~/.config/mimi 
-	 cp -rv $WIDIRCFGDIR/mimi.conf ~/.config/mimi/mime.conf
+	 cp -rv $NHKCFG/mimi.conf ~/.config/mimi/mime.conf
 	 mkdir -p ~/.local/bin 
 	 cp -rv xt/foxtag ~/.local/bin/
 	 cp -rv xt/wiconv ~/.local/bin/
          cp -rv xt/slmenu ~/.local/bin/
-	 cp -rv $WIDIRCFGDIR/.Xresources_nhk $HOME/
+	 cp -rv $NHKCFG/.Xresources_nhk $HOME/
 	 xrdb -merge ~/.Xresources_nhk
 	 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-	 cp -rv $WIDIRCFGDIR/.nhktx.conf ~/
+	 cp -rv $NHKCFG/.nhktx.conf ~/
 	 tmux source-file ~/.nhktx.conf
-	 cd $WIDIR/src
+	 cd $NHK/src
          sudo make clean install
 	 sudo mkdir -p /usr/share/xsessions/ 
-	 sudo cp -rv $WIDIR/src/nhk.desktop /usr/share/xsessions/
+	 sudo cp -rv $NHK/src/nhk.desktop /usr/share/xsessions/
 	 sudo chmod +x patch/dwmc
 	 sudo cp -rv patch/dwmc /usr/bin/dwmc
-	 cd $WIDIR
+	 cd $NHK
          ;;
 
    -q)
-	 cd $WIDIR/src
-         QRY=$(echo -e "w\nwq\nq" | dmenu -i -fn 'Terminus:pixelsize=10:antialias=true' -nb black -nf white -sb white -sf black -p "::url")
-	 if [[ $QRY != "" ]]; then
-	    if [[ $QRY == "w" ]]; then
-		sudo make clean install 
-		sudo mkdir -p /usr/share/xsessions/
-		sudo cp -rv nhk.desktop /usr/share/xsessions/
-	    fi
-	    if [[ $QRY == "wq" ]]; then
-		sudo make clean install 
-		sudo mkdir -p /usr/share/xsessions/
-		sudo cp -rv $WIDIR/src/nhk.desktop /usr/share/xsessions/
-		sleep 0.5
-		dwmc quit
-	    fi
-	    if [[ $QRY == "q" ]]; then
-		dwmc quit 
-	    fi
-	 fi
+         QRY=$(echo -e "w\nwq\nq" | dmenu -i -fn $FONT -nb black -nf white -sb white -sf black -p "::")
+	 case $QRY in
+		 "w")
+		    $TRM -hold -cd $NHK/src -e sh -c "sudo make clean install && sudo mkdir -p /usr/share/xsessions/ && sudo cp -rv nhk.desktop /usr/share/xsessions/"
+		    ;;
+
+		  "wq")
+		    $TRM -hold -cd $NHK/src -e sh -c "sudo make clean install && sudo mkdir -p /usr/share/xsessions/ && sudo cp -rv nhk.desktop /usr/share/xsessions/"
+		    sleep 1
+		    dwmc quit
+		    ;;
+
+	          "q")
+		    dwmc quit 
+		    ;;
+	 esac
 	 ;;
 
    -EE)
 
      if [[ $# -gt 1 ]]; then
-	$LABYREDIT "${@:2}" 
+	$TXT "${@:2}" 
      else 
-	sudo $LABYREDIT $(which wm) 
+	$TXT $NHK/yr/wm && sudo cp -rv $NHK/yr/wm .local/bin/wm
      fi
 
      ;;
 
     *)
 	echo "
-	wm - nhk window management and configuration tool.
+	wm 0.1 - nhk window management and configuration tool.
 	EE: edit wm directly.
 	pk/upk: (re)package/unpackage nhk-related configurations.	
 	q: rebuild or simply quit dwm. 
@@ -586,11 +668,14 @@ case "$1" in
 	sv: screen recording function.
 	ar: audio recording function.
 	------------------------------
-	b: nhk metabrowser.
+	b: nhk metabrowser (metanet).
+	c: open instant messenger.
+	M: interact with email client.
 	g: git management tool.
 	d: display management tool.
-	w: wallpaper setter (0.1 is currently just nitrogen --restore).
-	K: kanata management tool (0.1 just initializes the kanata daemon).
+	w: wallpaper setter (0.1 - nitrogen --restore).
+	K: kanata management tool (0.1 - initializes kanata daemon).
 	"
+	;;
 	
 esac 
