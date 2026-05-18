@@ -27,7 +27,7 @@ FONT='Terminus:pixelsize=10:antialias=true'
 wideps() { # ignore this 
     case "$1" in
         "gentoo")
-	        sudo emerge -av dev-build/make dev-util/cmake x11-libs/cairo x11-libs/libx11 x11-libs/libxft x11-libs/libxinerama dev-vcs/git dev-lang/python x11-libs/pango dev-util/pkgconf dev-libs/gobject-introspection app-misc/lf x11-misc/xsel sys-process/htop app-misc/brightnessctl x11-misc/redshift net-p2p/rtorrent x11-terms/rxvt-unicode x11-misc/rofi app-editors/neovim x11-libs/libwnck x11-apps/yajl media-libs/freetype x11-apps/shotgun x11-apps/xclip media-fonts/terminus-font media-gfx/ueberzug app-multiplexers/tmux net-libs/webkit-gtk x11-misc/gcr x11-apps/xsetroot mail-client/aerc --oneshot
+	        sudo emerge -av dev-build/make dev-util/cmake x11-libs/cairo x11-libs/libx11 x11-libs/libxft x11-libs/libxinerama dev-vcs/git dev-lang/python x11-libs/pango dev-util/pkgconf dev-libs/gobject-introspection app-misc/lf x11-misc/xsel sys-process/htop app-misc/brightnessctl x11-misc/redshift net-p2p/rtorrent x11-terms/rxvt-unicode x11-misc/rofi app-editors/neovim x11-libs/libwnck x11-apps/yajl media-libs/freetype x11-apps/shotgun x11-apps/xclip media-fonts/terminus-font media-gfx/ueberzug app-multiplexers/tmux net-libs/webkit-gtk x11-misc/gcr x11-apps/xsetroot mail-client/aerc dev-python/userpath dev-python/pipx --oneshot
 		git clone https://github.com/huijunchen9260/dmenufm ~/dmenufm && \
 		cd ~/dmenufm && \
 		make && sudo make install && \
@@ -50,8 +50,8 @@ wideps() { # ignore this
 		cd ~/ && \ 
 		git clone https://github.com/kspi/dmenu-frecency && \
 		sudo mv dmenu-frecency/dmenu-frecency /usr/bin/ && \
-		curl -fsSL https://dwmbar.robinhirst.qzz.io/install.sh | bash && \
 		cargo install hacksaw && \
+		curl -fsSL https://raw.githubusercontent.com/AlfredoSequeida/hints/main/install.sh | bash 
 		echo 'complete. dependencies are installed.'
 		;;
 
@@ -79,12 +79,8 @@ wideps() { # ignore this
 		cd ~/ && \ 
 		git clone https://github.com/kspi/dmenu-frecency && \
 		sudo mv dmenu-frecency/dmenu-frecency /usr/bin/ && \
-		curl -fsSL https://dwmbar.robinhirst.qzz.io/install.sh | bash && \
 		cargo install hacksaw && \
-		[ $XDG_SESSION_TYPE = "x11" ] sudo apt install && \
-		pipx ensurepath && \
-		pipx install git+https://github.com/AlfredoSequeida/hints.git && \
-		echo 'complete. dependencies are installed.'
+		curl -fsSL https://raw.githubusercontent.com/AlfredoSequeida/hints/main/install.sh | bash 
             ;;
 
 #        "Fedora")
@@ -115,11 +111,8 @@ wideps() { # ignore this
 #	    cd ~/ && \ 
 #	    git clone https://github.com/kspi/dmenu-frecency && \
 #	    sudo mv dmenu-frecency/dmenu-frecency /usr/bin/ && \
-#	    curl -fsSL https://dwmbar.robinhirst.qzz.io/install.sh | bash && \
 #	    cargo install hacksaw && \
-#	    [ $XDG_SESSION_TYPE = "x11" ] sudo apt install && \
-#	    pipx ensurepath && \
-#	    pipx install git+https://github.com/AlfredoSequeida/hints.git && \
+#	    curl -fsSL https://raw.githubusercontent.com/AlfredoSequeida/hints/main/install.sh | bash 
 #	    echo 'complete. dependencies are installed.'
 #            ;;
 #        "Alpine")
@@ -149,17 +142,16 @@ wideps() { # ignore this
 	    cd yay/ 
 	    makepkg -si 
 	    yay -S warpd-git dmenufm-git bluetuith-git nitrogen dmenu-frecency pulsemixer pasystray-git hacksaw-git shotgun --noconfirm 
+	    curl -fsSL https://raw.githubusercontent.com/AlfredoSequeida/hints/main/install.sh | bash
             ;;
 	"artix") 
 		sudo pacman -S base-devel cairo libx11 libxft libxinerama git python pango pkgconf gobject-introspection lf xsel htop brightnessctl redshift rxvt-unicode rofi nvim libwnck3 yajl freetype2 terminus-font ueberzug tmux webkit2gtk-4.1 gcr tmux xorg-xsetroot  --noconfirm
 		git clone https://aur.archlinux.org/yay.git
 		cd yay/ 
 		makepkg -si 	
+		curl -fsSL https://raw.githubusercontent.com/AlfredoSequeida/hints/main/install.sh | bash
 		;;
 #
-#	"DSKIP")
-#		pass	
-#		;;
 #        *)
 #            echo "Unsupported distribution or package manager."
 #            exit 1
@@ -172,7 +164,6 @@ case "$1" in
     -e)
      if [[ $# -gt 1 ]]; then
 	$TRM -e $TXT "${@:2}" 
-	fi 
      else 
 	$TXT "${@:2}"
      fi
