@@ -149,6 +149,7 @@ wideps() { # ignore this
         git clone https://aur.archlinux.org/yay.git
         cd yay/ 
         makepkg -si 	
+	yay -S warpd-git dmenufm-git bluetuith-git nitrogen dmenu-frecency pulsemixer pasystray-git hacksaw-git shotgun --noconfirm 
         curl -fsSL https://raw.githubusercontent.com/AlfredoSequeida/hints/main/install.sh | bash
         ;;
 
