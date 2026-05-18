@@ -3,7 +3,7 @@ nhk is a modal desktop environment based atop dwm.
 
 TIME: `Nix:/3WK`
 
-`CURRENT_IMPROVEMENTS`: `METABROWSER`, `EVENT_HANDLING`, `INSTALLER`, `TUTORIAL`. 
+`CURRENT_IMPROVEMENTS`: `EVENT_HANDLING`, `SUBTOOLS`
 
 ----------------------------
 
