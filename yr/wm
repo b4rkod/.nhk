@@ -1,17 +1,16 @@
 #!/bin/bash
 
-# ENV
-# Meta
+# NHK
 NHK="$HOME/.nhk"
 NHKCFG="$HOME/.nhk/xt/cfg"
 CORE="2"
 
-# Browser
+# browser
 WEBDIR="$NHK/.mtn"
 WEBHIST="$WEBDIR/.mtnhist"
 WEBD="$WEBDIR/dwn"
 
-# Applications
+# applications
 TRM="urxvt" 
 TXT="nvim"
 MU="$TRM -e ncmpcpp"
@@ -21,100 +20,98 @@ IX="$TRM -e aerc"
 FM="$TRM -e lf"
 KANATA="$HOME/kanata.kbd"
 
-# Theming
+# theming
 FONT='Terminus:pixelsize=10:antialias=true'
 
 wideps() { # ignore this 
     case "$1" in
         "gentoo")
-	        sudo emerge -av dev-build/make dev-util/cmake x11-libs/cairo x11-libs/libx11 x11-libs/libxft x11-libs/libxinerama dev-vcs/git dev-lang/python x11-libs/pango dev-util/pkgconf dev-libs/gobject-introspection app-misc/lf x11-misc/xsel sys-process/htop app-misc/brightnessctl x11-misc/redshift net-p2p/rtorrent x11-terms/rxvt-unicode x11-misc/rofi app-editors/neovim x11-libs/libwnck x11-apps/yajl media-libs/freetype x11-apps/shotgun x11-apps/xclip media-fonts/terminus-font media-gfx/ueberzug app-multiplexers/tmux net-libs/webkit-gtk x11-misc/gcr x11-apps/xsetroot mail-client/aerc dev-python/userpath dev-python/pipx --oneshot
-		git clone https://github.com/huijunchen9260/dmenufm ~/dmenufm && \
-		cd ~/dmenufm && \
-		make && sudo make install && \
-		cd ~/ && \
-		git clone https://github.com/rvaiya/warpd.git && \ 
-		cd warpd/ && \
-		make && sudo make install && \
-		cd ~/ && \
-		rm -rf warpd/ && \
-		curl -LOS "https://raw.githubusercontent.com/whoisYoges/emojimenu/master/allemojis.txt" && \
-		curl -LOS "https://raw.githubusercontent.com/whoisYoges/emojimenu/master/emojimenu" && \
-		chmod +x emojimenu && \
-		sudo mkdir -p /usr/share/emojimenu && \
-		sudo mv allemojis.txt /usr/share/emojimenu/allemojis.txt && \
-		sudo mv emojimenu /usr/local/bin/emojimenu && \
-		git clone https://github.com/darkhz/bluetuith && \
-		cd bluetuith && \ 
-		go build main.go -o bluetuith-bin && \
-		mv bluetuith-bin /usr/bin/bluetuith && \
-		cd ~/ && \ 
-		git clone https://github.com/kspi/dmenu-frecency && \
-		sudo mv dmenu-frecency/dmenu-frecency /usr/bin/ && \
-		cargo install hacksaw && \
-		curl -fsSL https://raw.githubusercontent.com/AlfredoSequeida/hints/main/install.sh | bash 
-		echo 'complete. dependencies are installed.'
-		;;
+
+	 sudo emerge -av dev-build/make dev-util/cmake x11-libs/cairo x11-libs/libx11 x11-libs/libxft x11-libs/libxinerama dev-vcs/git dev-lang/python x11-libs/pango dev-util/pkgconf dev-libs/gobject-introspection app-misc/lf x11-misc/xsel sys-process/htop app-misc/brightnessctl x11-misc/redshift net-p2p/rtorrent x11-terms/rxvt-unicode x11-misc/rofi app-editors/neovim x11-libs/libwnck x11-apps/yajl media-libs/freetype x11-apps/shotgun x11-apps/xclip media-fonts/terminus-font media-gfx/ueberzug app-multiplexers/tmux net-libs/webkit-gtk x11-misc/gcr x11-apps/xsetroot mail-client/aerc dev-python/userpath dev-python/pipx --oneshot
+	 git clone https://github.com/huijunchen9260/dmenufm ~/dmenufm && \
+	 cd ~/dmenufm && \
+	 make && sudo make install && \
+	 cd ~/ && \
+	 git clone https://github.com/rvaiya/warpd.git && \ 
+	 cd warpd/ && \
+	 make && sudo make install && \
+	 cd ~/ && \
+	 rm -rf warpd/ && \
+	 curl -LOS "https://raw.githubusercontent.com/whoisYoges/emojimenu/master/allemojis.txt" && \
+	 curl -LOS "https://raw.githubusercontent.com/whoisYoges/emojimenu/master/emojimenu" && \
+	 chmod +x emojimenu && \
+	 sudo mkdir -p /usr/share/emojimenu && \
+	 sudo mv allemojis.txt /usr/share/emojimenu/allemojis.txt && \
+	 sudo mv emojimenu /usr/local/bin/emojimenu && \
+	 git clone https://github.com/darkhz/bluetuith && \
+	 cd bluetuith && \ 
+	 go build main.go -o bluetuith-bin && \
+	 mv bluetuith-bin /usr/bin/bluetuith && \
+	 cd ~/ && \ 
+	 git clone https://github.com/kspi/dmenu-frecency && \
+	 sudo mv dmenu-frecency/dmenu-frecency /usr/bin/ && \
+	 cargo install hacksaw && \
+	 curl -fsSL https://raw.githubusercontent.com/AlfredoSequeida/hints/main/install.sh | bash 
+	 ;;
 
         "debian")
-		sudo apt install -y build-essential cmake libcairo2-dev libx11-dev libxft-dev libxinerama-dev git python3 libpango-1.0-0 pkg-config libgirepository1.0-dev lf xsel htop brightnessctl redshift rtorrent rxvt-unicode rofi neovim libwnck-3-0 libyajl2 libfreetype6 shotgun xclip fonts-terminus ueberzug tmux libwebkit2gtk-4.1-0 gcr aerc tmux x11-xserver-utils
-		git clone https://github.com/huijunchen9260/dmenufm ~/dmenufm && \
-		cd ~/dmenufm && \
-		make  -j4 && sudo make install && \
-		cd ~/ && \
-		git clone https://github.com/rvaiya/warpd.git && \ 
-		cd warpd/ && \
-		make -j4 && sudo make install && \
-		cd ~/ && \
-		rm -rf warpd/ && \
-		curl -LOS "https://raw.githubusercontent.com/whoisYoges/emojimenu/master/allemojis.txt" && \
-		curl -LOS "https://raw.githubusercontent.com/whoisYoges/emojimenu/master/emojimenu" && \
-		chmod +x emojimenu && \
-		sudo mkdir -p /usr/share/emojimenu && \
-		sudo mv allemojis.txt /usr/share/emojimenu/allemojis.txt && \
-		sudo mv emojimenu /usr/local/bin/emojimenu && \
-		git clone https://github.com/darkhz/bluetuith && \
-		cd bluetuith && \ 
-		go build main.go -o bluetuith-bin && \
-		mv bluetuith-bin /usr/bin/bluetuith && \
-		cd ~/ && \ 
-		git clone https://github.com/kspi/dmenu-frecency && \
-		sudo mv dmenu-frecency/dmenu-frecency /usr/bin/ && \
-		cargo install hacksaw && \
-		curl -fsSL https://raw.githubusercontent.com/AlfredoSequeida/hints/main/install.sh | bash 
-            ;;
 
-#        "Fedora")
-#            sudo dnf groupinstall "Development Tools" && sudo dnf install libX11-devel libXft-devel libXinerama-devel xorg-x11-server-Xorg xorg-x11-xinit git gcc gobject-introspection-devel cairo-gobject-devel pkg-config python3-devel gtk4 pipx pasystray kernel-devel pam-devel libxcb-devel zig xorg-x11-xauth xorg-x11-server brightnessctl gtk-layer-shell grim pulsemixer && \ 
-#	    [ $XDG_SESSION_TYPE = "x11" ] && \ 
-#            pipx ensurepath && \
-#            pipx install git+https://github.com/AlfredoSequeida/hints.git && \
-#	    pipx install calcure
-#	    git clone https://github.com/huijunchen9260/dmenufm ~/dmenufm && \
-#	    cd ~/dmenufm && \
-#	    make  -j4 && sudo make install && \
-#	    cd ~/ && \
-#	    git clone https://github.com/rvaiya/warpd.git && \ 
-#	    cd warpd/ && \
-#	    make -j4 && sudo make install && \
-#	    cd ~/ && \
-#	    rm -rf warpd/ && \
-#	    curl -LOS "https://raw.githubusercontent.com/whoisYoges/emojimenu/master/allemojis.txt" && \
-#	    curl -LOS "https://raw.githubusercontent.com/whoisYoges/emojimenu/master/emojimenu" && \
-#	    chmod +x emojimenu && \
-#	    sudo mkdir -p /usr/share/emojimenu && \
-#	    sudo mv allemojis.txt /usr/share/emojimenu/allemojis.txt && \
-#	    sudo mv emojimenu /usr/local/bin/emojimenu && \
-#	    git clone https://github.com/darkhz/bluetuith && \
-#	    cd bluetuith && \ 
-#	    go build main.go -o bluetuith-bin && \
-#	    mv bluetuith-bin /usr/bin/bluetuith && \
-#	    cd ~/ && \ 
-#	    git clone https://github.com/kspi/dmenu-frecency && \
-#	    sudo mv dmenu-frecency/dmenu-frecency /usr/bin/ && \
-#	    cargo install hacksaw && \
-#	    curl -fsSL https://raw.githubusercontent.com/AlfredoSequeida/hints/main/install.sh | bash 
-#	    echo 'complete. dependencies are installed.'
-#            ;;
+	 sudo apt install -y build-essential cmake libcairo2-dev libx11-dev libxft-dev libxinerama-dev git python3 libpango-1.0-0 pkg-config libgirepository1.0-dev lf xsel htop brightnessctl redshift rtorrent rxvt-unicode rofi neovim libwnck-3-0 libyajl2 libfreetype6 shotgun xclip fonts-terminus ueberzug tmux libwebkit2gtk-4.1-0 gcr aerc tmux x11-xserver-utils
+	 git clone https://github.com/huijunchen9260/dmenufm ~/dmenufm && \
+	 cd ~/dmenufm && \
+	 make  -j4 && sudo make install && \
+	 cd ~/ && \
+	 git clone https://github.com/rvaiya/warpd.git && \ 
+	 cd warpd/ && \
+	 make -j4 && sudo make install && \
+	 cd ~/ && \
+	 rm -rf warpd/ && \
+	 curl -LOS "https://raw.githubusercontent.com/whoisYoges/emojimenu/master/allemojis.txt" && \
+	 curl -LOS "https://raw.githubusercontent.com/whoisYoges/emojimenu/master/emojimenu" && \
+	 chmod +x emojimenu && \
+	 sudo mkdir -p /usr/share/emojimenu && \
+	 sudo mv allemojis.txt /usr/share/emojimenu/allemojis.txt && \
+	 sudo mv emojimenu /usr/local/bin/emojimenu && \
+	 git clone https://github.com/darkhz/bluetuith && \
+	 cd bluetuith && \ 
+	 go build main.go -o bluetuith-bin && \
+	 mv bluetuith-bin /usr/bin/bluetuith && \
+	 cd ~/ && \ 
+	 git clone https://github.com/kspi/dmenu-frecency && \
+	 sudo mv dmenu-frecency/dmenu-frecency /usr/bin/ && \
+	 cargo install hacksaw && \
+	 curl -fsSL https://raw.githubusercontent.com/AlfredoSequeida/hints/main/install.sh | bash 
+	 ;;
+
+	"fedora")
+	
+	 sudo dnf groupinstall "Development Tools" && sudo dnf install -y libX11-devel libXft-devel libXinerama-devel xorg-x11-server-Xorg xorg-x11-xinit git gcc gobject-introspection-devel cairo-gobject-devel pkg-config python3-devel gtk4 pipx pasystray kernel-devel pam-devel libxcb-devel zig xorg-x11-xauth xorg-x11-server brightnessctl gtk-layer-shell grim pulsemixer lf xsel htop redshift rtorrent rxvt-unicode rofi neovim libwnck-devel yajl-devel freetype-devel shotgun xclip terminus-fonts ueberzug tmux webkit2gtk4.1-devel gcr aerc xsetroot && \
+	 git clone https://github.com/huijunchen9260/dmenufm ~/dmenufm && \
+	 cd ~/dmenufm && \
+	 make -j4 && sudo make install && \
+	 cd ~/ && \
+	 git clone https://github.com/rvaiya/warpd.git && \
+	 cd warpd/ && \
+	 make -j4 && sudo make install && \
+	 cd ~/ && \
+	 rm -rf warpd/ && \
+	 curl -LOS "https://raw.githubusercontent.com/whoisYoges/emojimenu/master/allemojis.txt" && \
+	 curl -LOS "https://raw.githubusercontent.com/whoisYoges/emojimenu/master/emojimenu" && \
+	 chmod +x emojimenu && \
+	 sudo mkdir -p /usr/share/emojimenu && \
+	 sudo mv allemojis.txt /usr/share/emojimenu/allemojis.txt && \
+	 sudo mv emojimenu /usr/local/bin/emojimenu && \
+	 git clone https://github.com/darkhz/bluetuith && \
+	 cd bluetuith && \
+	 go build main.go -o bluetuith-bin && \
+	 sudo mv bluetuith-bin /usr/bin/bluetuith && \
+	 cd ~/ && \
+	 git clone https://github.com/kspi/dmenu-frecency && \
+	 sudo mv dmenu-frecency/dmenu-frecency /usr/bin/ && \
+	 cargo install hacksaw && \
+	 curl -fsSL https://raw.githubusercontent.com/AlfredoSequeida/hints/main/install.sh | bash
+	 ;;
+
 #        "Alpine")
 #            apk add build-base libx11-dev libxft-dev libxinerama-dev xorg-server xinit
 #            ;;
@@ -137,25 +134,28 @@ wideps() { # ignore this
 #            sudo zypper install -t pattern devel_basis && sudo zypper install libX11-devel libXft-devel libXinerama-devel xorg-x11-server xorg-x11-xinit
 #            ;;
 	"arch") 
-            sudo pacman -S base-devel cairo libx11 libxft libxinerama git python pango pkgconf gobject-introspection lf xsel htop brightnessctl redshift rtorrent rxvt-unicode rofi nvim libwnck3 yajl freetype2 shotgun xorg-xclipboard terminus-font ueberzug tmux webkit2gtk-4.1 gcr tmux xorg-xsetroot --noconfirm
-	    git clone https://aur.archlinux.org/yay.git
-	    cd yay/ 
-	    makepkg -si 
-	    yay -S warpd-git dmenufm-git bluetuith-git nitrogen dmenu-frecency pulsemixer pasystray-git hacksaw-git shotgun --noconfirm 
-	    curl -fsSL https://raw.githubusercontent.com/AlfredoSequeida/hints/main/install.sh | bash
-            ;;
+
+         sudo pacman -S base-devel cairo libx11 libxft libxinerama git python pango pkgconf gobject-introspection lf xsel htop brightnessctl redshift rtorrent rxvt-unicode rofi nvim libwnck3 yajl freetype2 shotgun xorg-xclipboard terminus-font ueberzug tmux webkit2gtk-4.1 gcr tmux xorg-xsetroot --noconfirm
+	 git clone https://aur.archlinux.org/yay.git
+	 cd yay/ 
+	 makepkg -si 
+	 yay -S warpd-git dmenufm-git bluetuith-git nitrogen dmenu-frecency pulsemixer pasystray-git hacksaw-git shotgun --noconfirm 
+	 curl -fsSL https://raw.githubusercontent.com/AlfredoSequeida/hints/main/install.sh | bash
+         ;;
+
 	"artix") 
-		sudo pacman -S base-devel cairo libx11 libxft libxinerama git python pango pkgconf gobject-introspection lf xsel htop brightnessctl redshift rxvt-unicode rofi nvim libwnck3 yajl freetype2 terminus-font ueberzug tmux webkit2gtk-4.1 gcr tmux xorg-xsetroot  --noconfirm
-		git clone https://aur.archlinux.org/yay.git
-		cd yay/ 
-		makepkg -si 	
-		curl -fsSL https://raw.githubusercontent.com/AlfredoSequeida/hints/main/install.sh | bash
-		;;
-#
-#        *)
-#            echo "Unsupported distribution or package manager."
-#            exit 1
-#            ;;
+
+         sudo pacman -S base-devel cairo libx11 libxft libxinerama git python pango pkgconf gobject-introspection lf xsel htop brightnessctl redshift rxvt-unicode rofi nvim libwnck3 yajl freetype2 terminus-font ueberzug tmux webkit2gtk-4.1 gcr tmux xorg-xsetroot  --noconfirm
+        git clone https://aur.archlinux.org/yay.git
+        cd yay/ 
+        makepkg -si 	
+        curl -fsSL https://raw.githubusercontent.com/AlfredoSequeida/hints/main/install.sh | bash
+        ;;
+
+        *)
+            echo "Owo ?????????????? need a distro buddy!!!!!!11"
+            exit 1
+            ;;
     esac
 }
 
