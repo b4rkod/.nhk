@@ -3,7 +3,7 @@ nhk is a modal desktop environment based atop dwm. its existence is out of a qui
 
 TIME: `Nix:/3WK`
 
-`CURRENT_IMPROVEMENTS`: `EVENT_HANDLING`, `SUBTOOLS`
+`CURRENT_IMPROVEMENTS`: `EVENT_HANDLING`, `SUBTOOLS`, `DEPENDENCIES`
 
 ----------------------------
 
