@@ -4,28 +4,19 @@ alt + o ; w
 #hyper
 # lb -v
 
-alt + Escape
- lb -v
-
 alt + o ; ctrl + space
  lb -i
-
-alt + Tab
- lb -v
 
 alt + o ; backslash ; v
  lb -V
 
 # [nav]
 
-alt + o ; grave
+alt + o ; slash
  rofi -show window -kb-element-prev 'k' -kb-element-next 'j' -kb-accept-entry 'o'
 
-alt + o ; e 
+alt + o ; period
  emojimenu
-
-alt + o ; shift + 1
- pulsar-termrun
 
 # [wm]
 
@@ -68,8 +59,8 @@ alt + o ; shift + grave
 alt + o ; c ; w
  dwmc killclient; rofi -show drun
 
-alt + o ; ctrl + n 
- dwmc nametag
+#alt + o ; ctrl + n 
+# dwmc nametag
 
 alt + o ; space ; {j,k}
  dwmc rotatestack {+,-}1
@@ -86,22 +77,19 @@ alt + o ; equal
 alt + o ; {l,h}
  dwmc setmfact {+,-}0.18
 
-alt + f
- hints
-
 alt + o ; f
  hints
 
 alt + o ; r 
  hints -m scroll
 
-alt + o ; V 
- warpd --hint
-
 alt + o ; v 
  warpd --normal
 
-alt + o ; z 
+alt + o ; F
+ warpd --hint
+
+alt + o ; x ; p 
  dwmc zoom
  
 alt + o ; d 
@@ -112,6 +100,9 @@ alt + o ; {n,N}
 
 # [tools]
 # [x] checking email (aerc)
+
+alt + o ; shift + 1
+ omni
 
 Print ; i
  wm -ss
@@ -141,7 +132,7 @@ alt + r
  wm -e "note.txt"
 
 alt + o ; {b,B}
- wm -b
+ wm {-b,-b $(xsel -b)}
 
 alt + q ; d
  gnome-dictionary
@@ -152,10 +143,16 @@ alt + q ; f
 alt + q ; m 
  wm -E aerc
 
-alt + q ; c 
+alt + o ; c 
  equibop 
 
-alt + q ; k
+alt + o ; e
+ wm -b 
+
+alt + o ; E
+ wm -fm 
+
+alt + o ; k
  kpmenu
 
 # [productivity]  
@@ -174,16 +171,13 @@ alt + o ; N
 shift + F8
  redshift {-O 2300,-x}
 
-alt + o ; exclam 
- python ~/cmdlaunch.py -n "" 
-
-alt + o ; x 
- lb -v && xkill && lb -i
-
 # [config]
 
 alt + o ; comma
  lb -e
+
+alt + o ; shift + comma
+ lb -rb
 
 alt + o ; question
  wm -T

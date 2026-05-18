@@ -28,9 +28,15 @@ backslash ; w
  lb -I 
 
 i 
- lb -i 
+ lb -i
 
-w 
+a 
+ dwmc focusstack +1 && lb -i 
+
+b
+ dwmc focusmaster
+
+w
  dmenu-frecency
 
 W
@@ -44,14 +50,17 @@ shift + space
 
 # [wm]
 
-a 
- dwmc viewex +1 && dmenu-frecency 
+o
+ dwmc viewex +1 && lb -i 
 
-ctrl + l 
+O
+ dwmc viewex -1 && lb -i 
+
+ctrl + L
  slock
 
-{H,L}
- dwmc tagmon {-,+}1
+#{H,L}
+# dwmc tagmon {-,+}1
 
 ctrl + grave
  dwmc setlayoutex {8,0}
@@ -65,8 +74,11 @@ space ; {g ; g,G}
 {ctrl + a, ctrl + x}
  dwmc incnmaster {+,-}1
 
-{g ; g,G}
+{H,L}
  dwmc viewex {0,8}
+
+M
+ dwmc viewex 4
 
 shift + grave
  dwmc togglemax
@@ -109,7 +121,6 @@ x ; p
 
 ctrl + W 
  dwmc togglebar
-
 #shift + 1
 
 c ; w
@@ -123,17 +134,8 @@ ctrl + N
 
 # kill windows. pleae. 
 
-d 
+{d,BackSpace}
  dwmc killclient
-
-Z ; Q
- dwmc quit
-
-ctrl + w ; q
- dwmc quit
-
-x
- xkill
 
 R
  reboot
@@ -157,10 +159,10 @@ v
 
 # [menus]
 
-grave
+slash
  rofi -show window -kb-element-prev 'k' -kb-element-next 'j' -kb-accept-entry 'o'
 
-o ; a
+shift + 2 ; a
  wm -t pulsemixer
 
 # [config] 
@@ -169,18 +171,21 @@ comma
  lb -e
 
 ctrl + comma 
- wm -t wm -EE
+ wm -EE
 
 ctrl + question
  wm -t wm -EE  ~/.nhk/src/config.h
  
-shift + comma
- lb -i && wm -t wm -rb
+colon ; q
+ wm -q
 
 shift + 8
  wm -t wm -t
 
 # [applications] 
+
+shift + 1
+ omni
 
 m
  wm -m  
@@ -188,18 +193,18 @@ m
 ctrl + m
  wm -M
 
-M
+shift + 2 ; M
  wm -t htop
 
-colon ; e 
+colon ; o 
  wm -t nvim ~/.new.txt 
 
-colon ; 
+colon ; T
  wm -t nvim ~/todo.txt
 
 # need % to cycle thorough all instances (children) of the focused program
 
-o ; k
+shift + 2 ; k
  kpmenu -d $HOME/Documents/Passwords.kdbx
 
 ctrl + w ; p
@@ -222,20 +227,17 @@ z ; r
 t 
  wm -t 
 
-o ; w
+shift + 2 ; w
  nitrogen
 
 shift + 7 
  wm -t hblock
 
-o ; f
+E
  wm -fm
 
-o ; semicolon
+shift + 2 ; semicolon
  mullvad-browser "$(xsel -b)"
-
-colon ; w
- lb -i && wm -t wm -rb
 
 period
  emojimenu
@@ -249,7 +251,7 @@ T
 o ; T
  spmenu -M
 
-o ; b
+e
  wm -b
 
 colon ; r
@@ -258,10 +260,7 @@ colon ; r
 ctrl + semicolon
  pulsar-termrun
 
-C
- wm -t git clone $(xsel -b) $(dmenufm -t)
-
-o ; c
+shift + 2 ; c
  wm -c
 
 n ; m
