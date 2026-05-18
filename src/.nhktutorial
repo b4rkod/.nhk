@@ -1,37 +1,47 @@
-[Introduction] 
+[introduction] 
 
-Use / or ? to find certain words in this file, if you've never used vim before... for some reason...
+use / or ? to find certain words in this file, if you've never used vim before... for some reason...
 
-Much like Vim, nhk has its own functional modal interface for navigation, window and application management. The best thing to do is learn each of those paradigms in stages. You can think of the keybinding configurations applied by sxhkd as strata, where each stratum allows a different form of control over the system, depending on the type of task at hand. 
+much like vim, nhk has its own functional modal interface for navigation, window and application management. The best thing to do is learn each of those paradigms in stages. You can think of the keybinding configurations applied by sxhkd as strata, where each stratum allows a different form of control over the system, depending on the type of task at hand. 
 
-In normal mode, every mode thereafter is accessible via the backslash key and the first letter of that mode's name. It's default configuration creates dual or singular keybindings for different commands, some of which allow control over the window manager. As stated above, it is best that the user breaks down these different window manager functions into isolated paradigms. 
+in normal mode, every mode thereafter is accessible via the backslash key and the first letter of that mode's name. it's default configuration creates dual or singular keybindings for different commands, some of which allow control over the window manager. as stated above, it is best that the user breaks down these different window manager functions into isolated paradigms. 
 
-Start with learning window management. Practice moving windows, resizing the stacks, opening applications and exiting them.
+start with learning window management. practice moving windows, resizing the stacks, opening applications and exiting them. the window management macros in nhk borrow from the ideas behind the vim text editor and file manager, such that:
+
+buffer → workspace
+line → all windows in the workspace (master + client stack combined)
+word → a single stack (master stack = one word, client stack = another word)
+character → individual window within a stack
 
 c- - ctrl.
 m- - alt. 
 s- - shift. 
-hyper - windows key. 
+hyper - resets to normal mode.
+i - enter insert while in normal. 
 
 ---------------------------
 
-## [Window Management] 
+# [Window Management] 
 
-? - Opens Tutorial
+? - opens tutorial. 
+colon ; e - edit dwm configuration.
+colon ; q - quit dwm.
+{1-9} - workspace.
+d,backspace,enter - close windows.
+j,k - shift cursor south or north.
+x-p - shift window position between master and client stack.
+J,K - shift window position south or north.
+h,l - resize master window east or west.  
+c-j,c-k - (decrease,increase) client window size.
+H,L - jump to (first,last) workspace. 
+spc-{1-9} - move win to nth workspace.
+spc-H,L - move window to (first,last) workspace. 
 
-S-F8 - night light (redshift).
-{1-9} - workspace
-j, k - shift cursor south or north.
-h, l - resize master window east or west.  
-c-j, c-k - resize client window south or north.
-J, K - shift window position south or north through window stack.
-space ; space - shift window position between master and client stack.
-c-w - hide topbar. 
+f - hint window elements for selection with mouse. OwO 
+v - initialize warpd. (keyboard-controlled mouse.)
+
+F11 - hide topbar. 
 = - reset client window size. 
-x - initializes xkill. 
-d - close windows.
-Z ; Q - quit dwm.
-Z ; Z - rebuild dwm.
 ctrl + l - lock screen.
 ctrl + w - wallpaper manager (nitrogen).
 c-n - clear notifications. 
@@ -42,25 +52,39 @@ c-N - iterate notifications.
 comma - current keybinding stratum's configuration. (m-comma in ins mode does the same.) 
 c-comma - settings manager (wm -EE).
 s-comma - rebuild dwm.
-c-s-comma - edit dwm configuration.
 
-## [Application]
+# [Application]
 
-w - start (d)menu. 
-i - enter ins. all keys here work the same in, but only after the m-o prefix is pressed.  
-hyper - return to normal mode from ins. 
+## [Utilities]
+
+S-F8 - night light (redshift).
+
+E - file manager 
+e - metabrowser
+w - application (d)menu. 
+z-f - guided screenshot. 
+z-F - full screenshot.
+z-r - audio recording. 
+m - music player
+o-a - audio configuration matrix (pulsemixer).
+
+@M - process manager
+n-m - network monitor.
+N - network manager (nmtui).
+@c - chat application (wm -c). 
+colon ; o - spare note file. 
+colon ; T - todo list. (0.1 - stupid. i know. there's better plans for this right now.)
 
 ## [System] 
 
-S - shutdown the system. don't press it.
-R - reboot the system. don't press it. 
+S - shutdown the system. 
+R - reboot the system. 
 
 ---------------------------
 
 [wm] 
 
 wm, which means window manager, is a (currently oversized) bash script meant to both ease the process of editing keybinding strata and allow for centralized and scriptable management of default software. on the surface, it seems like moon runes, especially to a novice user. the user isn't required to learn bash in order to use the script. at the top, there are variables set which allow default programs to be swapped on the fly, display management, . therefore, you can begin think of wm as the settings manager.  
-
 
 [lb] 
 
