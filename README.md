@@ -1,5 +1,5 @@
 # .nhk
-nhk is a modal desktop environment based atop dwm. it's existence is out of a quiet debate surrounding the functionality of modern desktop environments.
+nhk is a modal desktop environment based atop dwm. its existence is out of a quiet debate surrounding the functionality of modern desktop environments.
 
 TIME: `Nix:/3WK`
 
