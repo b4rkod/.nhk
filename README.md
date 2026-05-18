@@ -3,7 +3,7 @@ nhk is a modal desktop environment based atop dwm.
 
 only working distro is still arch cause i went through a stupid situation recently but give me time.
 
-TIME: `Gentoo:/1WK`, `Nix:/3WK`
+TIME: `Nix:/3WK`
 
 `CURRENT_IMPROVEMENTS`: `METABROWSER`, `EVENT_HANDLING`, `INSTALLER`, `TUTORIAL`. 
 
@@ -11,5 +11,5 @@ TIME: `Gentoo:/1WK`, `Nix:/3WK`
 
 ```
 git clone https://github.com/nhkintact/.nhk ~/.nhk
-cd ~/.nhk/yr/ && chmod +x wm && ./wm -upk Arch
+cd ~/.nhk/yr/ && chmod +x wm && ./wm -upk [arch/artix/debian/gentoo]
 ```
