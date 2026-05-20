@@ -576,6 +576,7 @@ case "$1" in
 	 cd $NHK/src/xtr/nsxiv/ && make -j$CORE && sudo make install
 	 cd $NHK/src/xtr/dunst/ && make -j$CORE && sudo make install
 	 cd $NHK/src/xtr/sxhkd/ && make -j$CORE && make clean && make && sudo make install
+	 cd $NHK/src/xtr/dmenu/ && make -j$CORE && make clean && make && sudo make install
 	 cd $NHK/src/xtr/dwmblocks/ && make -j$CORE && sudo make install
 	 mkdir -p $HOME/.config/nhk
 	 cp -rv $NHK/yr/lb $HOME/.local/bin/
