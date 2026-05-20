@@ -94,14 +94,13 @@ static char *colors[][ColCount] = {
 
 static const Launcher launchers[] = {
 	/* icon to display      command        */
-	{ "",               CMD("", "") },
+	{ "*",               CMD("lb", "-v") },
 };
 
 static const char *const autostart[] = {
 	"lb", "-v", NULL,
 	"wm", "-w", NULL,
-	"wm", "-t", NULL,
-    "wm", "-T", NULL,
+	"wm", "-K", NULL,
 	"xban", NULL, 
 	"dunst", NULL,
 	"dwmblocks", NULL,
@@ -315,14 +314,14 @@ static const Key keys[] = {
         { 0,                            XF86XK_AudioMicMute,     spawn,        {.v = micmute }},
         { 0,                            XK_Super_L,    spawn,        	       {.v = lbres }},
         { 0,                            XK_Super_R,    spawn,        	       {.v = lbres }},
-	{ MODKEY|ShiftMask,             XK_Return,     spawn,                  {.v = termcmd } },
-	{ MODKEY,                       XK_p,          spawn,                  {.v = dmenucmd } },
+	// { MODKEY|ShiftMask,             XK_Return,     spawn,                  {.v = termcmd } },
+	// { MODKEY,                       XK_p,          spawn,                  {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return,     spawn,                  {.v = termcmd } },
 	{ MODKEY|ControlMask,           XK_p,          riospawnsync,           {.v = dmenucmd } },
 	{ MODKEY|ControlMask,           XK_Return,     riospawn,               {.v = termcmd } },
 	{ MODKEY,                       XK_s,          rioresize,              {0} },
-	{ MODKEY,                       XK_b,          togglebar,              {0} },
-	{ MODKEY|ShiftMask,             XK_b,          toggletopbar,           {0} },
+	// { MODKEY,                       XK_b,          togglebar,              {0} },
+	// { MODKEY|ShiftMask,             XK_b,          toggletopbar,           {0} },
 	{ MODKEY|ControlMask,           XK_space,      focusmaster,            {0} },
 	{ MODKEY,                       XK_j,          focusstack,             {.i = +1 } },
 	{ MODKEY,                       XK_k,          focusstack,             {.i = -1 } },
@@ -336,8 +335,8 @@ static const Key keys[] = {
 	{ MODKEY|ControlMask,           XK_Down,       placedir,               {.i = 3 } }, // down
 	{ MODKEY|ControlMask,           XK_j,          pushdown,               {0} },
 	{ MODKEY|ControlMask,           XK_k,          pushup,                 {0} },
-	{ MODKEY,                       XK_i,          incnmaster,             {.i = +1 } },
-	{ MODKEY,                       XK_d,          incnmaster,             {.i = -1 } },
+	// { MODKEY,                       XK_i,          incnmaster,             {.i = +1 } },
+	// { MODKEY,                       XK_d,          incnmaster,             {.i = -1 } },
 	{ MODKEY,                       XK_h,          setmfact,               {.f = -0.05} },
 	{ MODKEY,                       XK_l,          setmfact,               {.f = +0.05} },
 	{ MODKEY|ShiftMask,             XK_h,          setcfact,               {.f = +0.25} },
@@ -345,13 +344,11 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_o,          setcfact,               {0} },
 	{ MODKEY,                       XK_x,          transfer,               {0} },
 	{ MODKEY|ControlMask,           XK_r,          reorganizetags,         {0} },
-	{ MODKEY|ControlMask,           XK_d,          distributetags,         {0} },
+	// { MODKEY|ControlMask,           XK_d,          distributetags,         {0} },
 	{ MODKEY,                       XK_Return,     zoom,                   {0} },
 	{ MODKEY|Mod4Mask,              XK_u,          incrgaps,               {.i = +1 } },
 	{ MODKEY|Mod4Mask|ShiftMask,    XK_u,          incrgaps,               {.i = -1 } },
 	{ MODKEY|Mod4Mask,              XK_i,          incrigaps,              {.i = +1 } },
-	{ MODKEY|Mod4Mask|ShiftMask,    XK_i,          incrigaps,              {.i = -1 } },
-	{ MODKEY|Mod4Mask,              XK_o,          incrogaps,              {.i = +1 } },
 	{ MODKEY|Mod4Mask|ShiftMask,    XK_o,          incrogaps,              {.i = -1 } },
 	{ MODKEY|Mod4Mask,              XK_6,          incrihgaps,             {.i = +1 } },
 	{ MODKEY|Mod4Mask|ShiftMask,    XK_6,          incrihgaps,             {.i = -1 } },
@@ -373,7 +370,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_u,          focusurgent,            {0} },
 	{ MODKEY|ShiftMask,             XK_F5,         xrdb,                   {.v = NULL } },
 	{ MODKEY,                       XK_t,          setlayout,              {.v = &layouts[0]} },
-	{ MODKEY,                       XK_f,          setlayout,              {.v = &layouts[1]} },
+	// { MODKEY,                       XK_f,          setlayout,              {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,          setlayout,              {.v = &layouts[2]} },
 	{ MODKEY,                       XK_space,      setlayout,              {0} },
 	{ MODKEY|ShiftMask,             XK_space,      togglefloating,         {0} },
@@ -407,15 +404,15 @@ static const Key keys[] = {
 	{ MODKEY|ControlMask,           XK_F8,         tagall,                 {.v = "8"} },
 	{ MODKEY|ControlMask,           XK_F9,         tagall,                 {.v = "9"} },
 	{ MODKEY,                       XK_x,          movecenter,             {0} }, // note keybinding conflict with killunsel
-	TAGKEYS(                        XK_1,                                  0)
-	TAGKEYS(                        XK_2,                                  1)
-	TAGKEYS(                        XK_3,                                  2)
-	TAGKEYS(                        XK_4,                                  3)
-	TAGKEYS(                        XK_5,                                  4)
-	TAGKEYS(                        XK_6,                                  5)
-	TAGKEYS(                        XK_7,                                  6)
-	TAGKEYS(                        XK_8,                                  7)
-	TAGKEYS(                        XK_9,                                  8)
+//	TAGKEYS(                        XK_1,                                  0)
+//	TAGKEYS(                        XK_2,                                  1)
+//	TAGKEYS(                        XK_3,                                  2)
+//	TAGKEYS(                        XK_4,                                  3)
+//	TAGKEYS(                        XK_5,                                  4)
+//	TAGKEYS(                        XK_6,                                  5)
+//	TAGKEYS(                        XK_7,                                  6)
+//	TAGKEYS(                        XK_8,                                  7)
+//	TAGKEYS(                        XK_9,                                  8)
 };
 
 /* button definitions */
