@@ -39,7 +39,7 @@ LIBS = -L$(X11LIB) -lX11 $(XINERAMALIBS) $(FREETYPELIBS) -lm $(XRENDER) $(PANGOL
 
 # flags
 CPPFLAGS = -D_DEFAULT_SOURCE -D_BSD_SOURCE -D_XOPEN_SOURCE=700 -D_POSIX_C_SOURCE=200809L -DVERSION=\"$(VERSION)\" $(XINERAMAFLAGS) $(EXTRAFLAGS)
-CFLAGS   = -std=c99 -ftree-vectorize -fopenmp -pipe -march=native -O3 -flto -ffast-math -pedantic -Wall -Os $(INCS) $(CPPFLAGS)
+CFLAGS   = -std=c99 -march=native -ftree-vectorize -O3 -msse3 -ftracer -fipa-cp -fipa-pta -funroll-loops -floop-interchange -floop-strip-mine -fgcse-after-reload -finline-functions -pipe -pedantic -Wall -Wno-unused-function -Wno-deprecated-declarations -fcf-protection -fpie -fstack-clash-protection -D_FORTIFY_SOURCE=3 -fpic -shared ${INCS} ${CPPFLAGS}
 LDFLAGS  = $(LIBS)
 
 # compiler and linker
