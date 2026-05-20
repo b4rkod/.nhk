@@ -572,19 +572,15 @@ case "$1" in
 	
    	 cd $NHK/src/xtr
 	 cd $NHK/src/xtr/dmenu/ && make -j$CORE && sudo make install
-	 cd $NHK/src/xtr/lock/ && make -j4$CORE && sudo make install
+	 cd $NHK/src/xtr/lock/ && make -j$CORE && sudo make install
 	 cd $NHK/src/xtr/nsxiv/ && make -j$CORE && sudo make install
 	 cd $NHK/src/xtr/dunst/ && make -j$CORE && sudo make install
 	 cd $NHK/src/xtr/sxhkd/ && make -j$CORE && make clean && make && sudo make install
 	 cd $NHK/src/xtr/dwmblocks/ && make -j$CORE && sudo make install
-	 cd $NHK/src/xtr/surf/ && make -j$CORE  && sudo make install
-	 cd $NHK/src/xtr/surf/wyebadblock/ && make -j$CORE && sudo make install
-	 sudo mkdir /usr/local/lib/surf && sudo ln -s /usr/lib/wyebrowser/adblock.so /usr/local/lib/surf
-	 cd $NHK
 	 mkdir -p $HOME/.config/nhk
 	 cp -rv $NHK/yr/lb $HOME/.local/bin/
-	 cp -rv $NHK/yr/wm $HOME/.local//bin 
-	 cp -rv $NHK/yr/omni $HOME/.local//bin 
+	 cp -rv $NHK/yr/wm $HOME/.local/bin 
+	 cp -rv $NHK/yr/omni $HOME/.local/bin 
 	 chmod +x /usr/bin/wm 
 	 chmod +x /usr/bin/lb 
 	 chmod +x /usr/bin/omni
