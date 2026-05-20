@@ -85,7 +85,7 @@ wideps() { # ignore this
 
 	"fedora")
 	
-	 sudo dnf groupinstall "Development Tools" && sudo dnf install -y libX11-devel libXft-devel libXinerama-devel xorg-x11-server-Xorg xorg-x11-xinit git gcc gobject-introspection-devel cairo-gobject-devel pkg-config python3-devel gtk4 pipx pasystray kernel-devel pam-devel libxcb-devel zig xorg-x11-xauth xorg-x11-server brightnessctl gtk-layer-shell grim pulsemixer lf xsel htop redshift rtorrent rxvt-unicode rofi neovim libwnck-devel yajl-devel freetype-devel shotgun xclip terminus-fonts ueberzug tmux webkit2gtk4.1-devel gcr aerc xsetroot && \
+	 sudo dnf install -y cc gcc-c++ make cmake automake autoconf libtool libX11-xcb libxcb-devel libX11-devel libXft-devel libXinerama-devel xorg-x11-server-common xorg-x11-server-devel Xorg xorg-x11-xinit libexif libexif-devel libxcb-devel imlib2 imlib2-devel git gcc gobject-introspection-devel cairo-gobject-devel pkg-config python3-devel gtk4 pipx pasystray kernel-devel pam-devel libxcb-devel zig xorg-x11-xauth xorg-x11-server brightnessctl gtk-layer-shell grim pulsemixer lf xsel htop redshift rtorrent rxvt-unicode rofi neovim libwnck-devel yajl-devel freetype-devel shotgun xclip terminus-fonts ueberzug tmux webkit2gtk4.1-devel gcr aerc xsetroot && \
 	 git clone https://github.com/huijunchen9260/dmenufm ~/dmenufm && \
 	 cd ~/dmenufm && \
 	 make -j4 && sudo make install && \
