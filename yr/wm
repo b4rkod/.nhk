@@ -2,7 +2,7 @@
 
 # NHK
 NHK="$HOME/.nhk"
-NHKCFG="$HOME/.nhk/xt/cfg"
+NHKCFG="~/.nhk/xt/cfg"
 CORE="2"
 
 # browser
@@ -54,6 +54,7 @@ wideps() { # ignore this
 	 curl -fsSL https://raw.githubusercontent.com/AlfredoSequeida/hints/main/install.sh | bash 
 	 ;;
 
+
         "debian")
 
 	 sudo apt install -y build-essential cmake libcairo2-dev libx11-dev libxft-dev libxinerama-dev git python3 libpango-1.0-0 pkg-config libgirepository1.0-dev lf xsel htop brightnessctl redshift rtorrent rxvt-unicode rofi neovim libwnck-3-0 libyajl2 libfreetype6 shotgun xclip fonts-terminus ueberzug tmux libwebkit2gtk-4.1-0 gcr aerc tmux x11-xserver-utils
@@ -83,34 +84,40 @@ wideps() { # ignore this
 	 curl -fsSL https://raw.githubusercontent.com/AlfredoSequeida/hints/main/install.sh | bash 
 	 ;;
 
-	"fedora")
-	
-	 sudo dnf install -y cc gcc-c++ make cmake automake autoconf libtool libX11-xcb libxcb-devel libX11-devel libXft-devel libXinerama-devel xorg-x11-server-common xorg-x11-server-devel Xorg xorg-x11-xinit libexif libexif-devel libxcb-devel imlib2 imlib2-devel git gcc gobject-introspection-devel cairo-gobject-devel pkg-config python3-devel gtk4 pipx pasystray kernel-devel pam-devel libxcb-devel zig xorg-x11-xauth xorg-x11-server brightnessctl gtk-layer-shell grim pulsemixer lf xsel htop redshift rtorrent rxvt-unicode rofi neovim libwnck-devel yajl-devel freetype-devel shotgun xclip terminus-fonts ueberzug tmux webkit2gtk4.1-devel gcr aerc xsetroot && \
-	 git clone https://github.com/huijunchen9260/dmenufm ~/dmenufm && \
-	 cd ~/dmenufm && \
-	 make -j4 && sudo make install && \
-	 cd ~/ && \
-	 git clone https://github.com/rvaiya/warpd.git && \
-	 cd warpd/ && \
-	 make -j4 && sudo make install && \
-	 cd ~/ && \
-	 rm -rf warpd/ && \
-	 curl -LOS "https://raw.githubusercontent.com/whoisYoges/emojimenu/master/allemojis.txt" && \
-	 curl -LOS "https://raw.githubusercontent.com/whoisYoges/emojimenu/master/emojimenu" && \
-	 chmod +x emojimenu && \
-	 sudo mkdir -p /usr/share/emojimenu && \
-	 sudo mv allemojis.txt /usr/share/emojimenu/allemojis.txt && \
-	 sudo mv emojimenu /usr/local/bin/emojimenu && \
-	 git clone https://github.com/darkhz/bluetuith && \
-	 cd bluetuith && \
-	 go build main.go -o bluetuith-bin && \
-	 sudo mv bluetuith-bin /usr/bin/bluetuith && \
-	 cd ~/ && \
-	 git clone https://github.com/kspi/dmenu-frecency && \
-	 sudo mv dmenu-frecency/dmenu-frecency /usr/bin/ && \
-	 cargo install hacksaw && \
-	 curl -fsSL https://raw.githubusercontent.com/AlfredoSequeida/hints/main/install.sh | bash
-	 ;;
+
+       "fedora")
+
+         sudo dnf install -y --skip-unavailable cc gcc-c++ make cmake automake autoconf libtool libX11-devel libXft-devel libXinerama-devel libexif libexif-devel libxcb libxcb-devel libX11-xcb libxcb-devel xorg-x11-xinit imlib2-devel glib glib-devel git gcc gobject-introspection-devel cairo-gobject-devel pkg-config python3-devel gtk4 pipx cargo pasystray kernel-devel pam-devel libxcb-devel zig go xorg-x11-xauth xcb-util-keysyms xcb-util-keysyms-devel xcb-util-cursor xcb-util-cursor-devel xcb-util-wm xcb-util-wm-devel xcb-util-image xcb-util-image-devel xcb-util-devel xcb-util brightnessctl gtk-layer-shell grim xsel htop redshift rtorrent rxvt-unicode rofi neovim libwnck-devel yajl-devel freetype-devel xclip terminus-fonts tmux webkit2gtk4.1 aerc xsetroot && \
+         cargo install shotgun && \
+         cargo install hacksaw && \
+         pip install ueberzug && \
+         curl https://raw.githubusercontent.com/GeorgeFilipkin/pulsemixer/master/pulsemixer > pulsemixer && chmod +x ./pulsemixer && sudo mv pulsemixer ~/.local/bin/
+         git clone https://github.com/huijunchen9260/dmenufm ~/dmenufm && \
+         cd ~/dmenufm && \
+         make clean && make -j$CORE && sudo make install && \
+         cd ~/ && \
+         rm -rf ~/dmenufm
+         git clone https://github.com/rvaiya/warpd.git && \
+         cd warpd/ && \
+         make -j$CORE && sudo make install && \
+         cd ~/ && \
+         rm -rf warpd/ && \
+         curl -LOS "https://raw.githubusercontent.com/whoisYoges/emojimenu/master/allemojis.txt" && \
+         curl -LOS "https://raw.githubusercontent.com/whoisYoges/emojimenu/master/emojimenu" && \
+         chmod +x emojimenu && \
+         sudo mkdir -p /usr/share/emojimenu && \
+         sudo mv allemojis.txt /usr/share/emojimenu/allemojis.txt && \
+         sudo mv emojimenu /usr/local/bin/emojimenu && \
+         git clone https://github.com/darkhz/bluetuith && \
+         cd bluetuith && \
+         go build main.go -o bluetuith-bin && \
+         sudo mv bluetuith-bin /usr/bin/bluetuith && \
+         cd ~/ && \
+         git clone https://github.com/kspi/dmenu-frecency && \
+         sudo mv dmenu-frecency/dmenu-frecency /usr/bin/ && \
+         cargo install hacksaw && \
+         curl -fsSL https://raw.githubusercontent.com/AlfredoSequeida/hints/main/install.sh | bash
+         ;;
 
 #        "Alpine")
 #            apk add build-base libx11-dev libxft-dev libxinerama-dev xorg-server xinit
@@ -244,7 +251,7 @@ case "$1" in
 	
 		if [[ "$URL" =~ ^https?://(github|gitea|codeberg|gitlab)\.com/(.*)/(.*)\.git$ ]]; then
 		    REPO="${BASH_REMATCH[3]}"   
-		    DIR="${BASH_REMATCH[2]}"    
+		    DIR="${BASH_REMATCH[2]}"    EVENT_HANDLING, SUBTOOLS, DEPENDENCIES
 		elif [[ "$URL" =~ ^([^/]+)/([^/]+)$ ]]; then
 		    DIR="${BASH_REMATCH[1]}"    
 		    REPO="${BASH_REMATCH[2]}"    
@@ -434,9 +441,33 @@ case "$1" in
 	    ;;
 
     -w)
-	# will later be replaced by a feh-based wallpaper setting function.
-	nitrogen --restore & 
-        ;;
+	WPCACHE="$NHKCFG/.wp"
+	while getopts "arc:" wpaper; do
+	      case "${wpaper}" in
+	a)
+	  WP="$(dmenufm -t -p "$WALL_DIR")"
+	  if [[ ! -z $WP ]]; then
+	  if [ -n "$WP" ] && [ -f "$WP" ]; then
+	      feh --bg-fill "$WP" &
+	      echo $WP > $NHKCFG/.wp &
+	      echo "wp: $WP" &
+	  else
+	      echo "no wallpapoer selected." &
+	  fi
+	  fi
+	  ;;
+
+	r)
+	  feh --bg-fill $(cat $WPCACHE)
+	  ;;
+	
+	c)
+	  cat $(cat $WPCACHE)
+	  ;;
+
+	esac
+	done
+	;;
 
     -se)
 	FILE="$HOME/.config/nhk/.urlquery"
@@ -569,24 +600,27 @@ case "$1" in
 
   -upk)  
 	 wideps $2
+
+	 mkdir -p ~/.local/bin 
+	 mkdir -p ~/.config/mimi 
+	 mkdir -p ~/.config/dmenu-frecency/ 
+	 mkdir -p ~/.config/nhk
+	 sudo mkdir -p /usr/share/xsessions/ 
 	
    	 cd $NHK/src/xtr
 	 cd $NHK/src/xtr/dmenu/ && make -j$CORE && sudo make install
-	 cd $NHK/src/xtr/lock/ && make -j$CORE && sudo make install
+	 cd $NHK/src/xtr/slock/ && make -j$CORE && sudo make install
 	 cd $NHK/src/xtr/nsxiv/ && make -j$CORE && sudo make install
 	 cd $NHK/src/xtr/dunst/ && make -j$CORE && sudo make install
 	 cd $NHK/src/xtr/sxhkd/ && make -j$CORE && make clean && make && sudo make install
 	 cd $NHK/src/xtr/dmenu/ && make -j$CORE && make clean && make && sudo make install
 	 cd $NHK/src/xtr/dwmblocks/ && make -j$CORE && sudo make install
-	 mkdir -p $HOME/.config/nhk
-	 cp -rv $NHK/yr/lb $HOME/.local/bin/
-	 cp -rv $NHK/yr/wm $HOME/.local/bin 
-	 cp -rv $NHK/yr/omni $HOME/.local/bin 
-	 chmod +x /usr/bin/wm 
-	 chmod +x /usr/bin/lb 
-	 chmod +x /usr/bin/omni
-	 mkdir -p ~/.config/polybar/
-	 mkdir -p ~/.config/dmenu-frecency/ 
+	 cp -rv $NHK/yr/lb ~/.local/bin/
+	 cp -rv $NHK/yr/wm ~/.local/bin 
+	 cp -rv $NHK/yr/omni ~/.local/bin 
+	 chmod +x ~.local/bin/wm 
+	 chmod +x ~.local/bin/lb 
+	 chmod +x ~.local/bin/omni
 	 cp -rv $NHKCFG/dmenu-frecency.config.json ~/.config/dmenu-frecency/config.json
 	 mkdir -p ~/.config/dunst/
 	 cp -rv $NHKCFG/dunstrc ~/.config/dunst/
@@ -596,20 +630,16 @@ case "$1" in
 	 cp -rv $NHKCFG/warpd.config ~/.config/warpd/config 
 	 mkdir -p ~/.config/sxhkd && cp -rv $NHK/xk/* ~/.config/sxhkd/
 	 cd $NHK
-	 mkdir -p ~/.config/mimi 
 	 cp -rv $NHKCFG/mimi.conf ~/.config/mimi/mime.conf
-	 mkdir -p ~/.local/bin 
-	 cp -rv xt/foxtag ~/.local/bin/
-	 cp -rv xt/wiconv ~/.local/bin/
-         cp -rv xt/slmenu ~/.local/bin/
-	 cp -rv $NHKCFG/.Xresources_nhk $HOME/
-	 xrdb -merge ~/.Xresources_nhk
+	 cp -rv $NHK/xt/foxtag ~/.local/bin/
+	 cp -rv $NHK/xt/wiconv ~/.local/bin/
+         cp -rv $NHK/xt/slmenu ~/.local/bin/
+	 xrdb -merge $NHKCFG/.Xresources.nhk 
 	 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 	 cp -rv $NHKCFG/.nhktx.conf ~/
 	 tmux source-file ~/.nhktx.conf
 	 cd $NHK/src
          sudo make clean install
-	 sudo mkdir -p /usr/share/xsessions/ 
 	 sudo cp -rv $NHK/src/nhk.desktop /usr/share/xsessions/
 	 sudo chmod +x patch/dwmc
 	 sudo cp -rv patch/dwmc /usr/bin/dwmc
