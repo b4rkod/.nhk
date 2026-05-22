@@ -2,7 +2,7 @@
 
 # NHK
 NHK="$HOME/.nhk"
-NHKCFG="~/.nhk/xt/cfg"
+NHKCFG="$HOME/.nhk/xt/cfg"
 CORE="2"
 
 # browser
@@ -458,11 +458,11 @@ case "$1" in
 	  ;;
 
 	r)
-	  feh --bg-fill $(cat $WPCACHE)
+	  feh --bg-fill "$(cat $WPCACHE)"
 	  ;;
 	
 	c)
-	  cat $(cat $WPCACHE)
+	  cat "$($WPCACHE)"
 	  ;;
 
 	esac
@@ -692,7 +692,7 @@ case "$1" in
 	M: interact with email client.
 	g: git management tool.
 	d: display management tool.
-	w: wallpaper setter (0.1 - nitrogen --restore).
+	w: wallpaper setter (feh)
 	K: kanata management tool (0.1 - initializes kanata daemon).
 	"
 	;;
