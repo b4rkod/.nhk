@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # NHK
-NHK="$HOME/prog/.nhk"
-NHKCFG="$HOME/prog/.nhk/xt/cfg"
+NHK="$HOME/.nhk"
+NHKCFG="$HOME/.nhk/xt/cfg"
 CORE="2"
 
 # browser
