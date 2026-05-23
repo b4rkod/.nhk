@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # NHK
-NHK="$HOME/.nhk"
-NHKCFG="$HOME/.nhk/xt/cfg"
+NHK="$HOME/prog/.nhk"
+NHKCFG="$HOME/prog/.nhk/xt/cfg"
 CORE="2"
 
 # browser
@@ -167,9 +167,10 @@ wideps() { # ignore this
     esac
 }
 
-case "$1" in
+while getopts "efmctMKgdbwshqEpuyTN:" opt; do
+case "$opt" in
 
-    -e)
+    e)
      if [[ $# -gt 1 ]]; then
 	$TRM -e $TXT "${@:2}" 
      else 
@@ -177,7 +178,7 @@ case "$1" in
      fi
         ;;
 
-    -fm)
+    f)
 
      if [[ $# -gt 1 ]]; then
 	$FM "${@:2}" &
@@ -186,7 +187,7 @@ case "$1" in
      fi
         ;;
 
-    -c)
+    m)
      if [[ $# -gt 1 ]]; then
 	$IM "${@:2}" &
      else 
@@ -194,7 +195,7 @@ case "$1" in
      fi
         ;;
 
-    -t)
+    c)
      if [[ $# -gt 1 ]]; then
 	$TRM -e "${@:2}" &
      else 
@@ -202,7 +203,7 @@ case "$1" in
      fi
      ;;
 
-    -m) 
+    t) 
 
      if [[ $# -gt 1 ]]; then
 	$MU -e "${@:2}" &
@@ -211,7 +212,7 @@ case "$1" in
      fi
         ;;
 	
-    -M) 
+    M) 
 
      if [[ $# -gt 1 ]]; then
 	$IX -e "${@:2}" &
@@ -220,7 +221,7 @@ case "$1" in
      fi
         ;;
 
-    -K) 
+    K) 
 
      if [[ $# -ge 1 ]]; then
 	if [[ -e "$KANATA" ]]; then
@@ -233,7 +234,7 @@ case "$1" in
         ;;
 
 
-    -g)
+    g)
 	FUNC=$(echo -e "clone\nfetch\npull\npush" | dmenu -i -f -fn $FONT -nb black -nf white -sb white -sf black -p "::git")
 	case $FUNC in
 		clone)
@@ -299,7 +300,7 @@ case "$1" in
        esac
        ;;
 
-	-d)
+	d)
 
 
 	MONITOR=$(xrandr --query | grep " connected" | awk '{print $1}')
@@ -347,7 +348,7 @@ case "$1" in
 	esac
     ;;
 
-    -b)
+    b)
 
 	mtnbrwse() {
 	        mkdir -p $WEBDIR &
@@ -440,7 +441,7 @@ case "$1" in
 	esac
 	    ;;
 
-    -w)
+    w)
 	WPCACHE="$NHKCFG/.wp"
 	while getopts "arc:" wpaper; do
 	      case "${wpaper}" in
@@ -469,7 +470,7 @@ case "$1" in
 	done
 	;;
 
-    -se)
+    s)
 	FILE="$HOME/.config/nhk/.urlquery"
 	
 	if [ ! -f $FILE ]; then
@@ -517,7 +518,7 @@ case "$1" in
 	wikihntr
 	;;
 
-    -sf)
+    h)
 	
         shotgun - | xclip -selection clipboard -t image/png
         filename=${filename:-$(date +%s)} && \
@@ -525,7 +526,7 @@ case "$1" in
         shotgun $NHK/s/"$filename.png"
         ;;
 
-    -ss)
+    S)
 
         selection=$(hacksaw -f "-i %i -g %g")
         shotgun $selection - | xclip -selection clipboard -t image/png
@@ -535,7 +536,7 @@ case "$1" in
         ;;
 
 
-   -sv)
+   V)
 
     	dir=$NHK/widow/s/video/
     	current=$(date +%F_%H-%M-%S)
@@ -563,7 +564,7 @@ case "$1" in
     		}
 	;;
 
-   -ar)
+   A)
 
    	   directory=$NHK/ar/
    	   date=$(date +%F_%H-%M-%S)
@@ -572,13 +573,14 @@ case "$1" in
 
     	;;
 
-   -T) 
+   T) 
 	   wm -t $TXT $NHK/src/.nhktutorial & 
 	   ;; 
    
-   -pk) 
-         sudo cp -rv $HOME/.local/bin/wm $NHK/yr/
-         sudo cp -rv $HOME/.local/bin/lb $NHK/yr/
+   p) 
+
+     sudo cp -rv $HOME/.local/bin/wm $NHK/yr/
+     sudo cp -rv $HOME/.local/bin/lb $NHK/yr/
 	 cp -rv ~/.config/sxhkd/* $NHK/xk/
 	 cp -rv ~/.config/warpd/config $NHKCFG/warpd.config
 	 cp -rv ~/.config/hints/config.json $NHKCFG/config.hints.json
@@ -598,7 +600,7 @@ case "$1" in
 	 cp -rv ~/.config/hints/config.json $NHKCFG/config.hints.json 
 	 ;;
 
-  -upk)  
+  u)  
 	 wideps $2
 
 	 mkdir -p ~/.local/bin 
@@ -646,7 +648,7 @@ case "$1" in
 	 cd $NHK
          ;;
 
-   -q)
+   q)
          QRY=$(echo -e "w\nwq\nq" | dmenu -i -fn $FONT -nb black -nf white -sb white -sf black -p "::")
 	 case $QRY in
 		 "w")
@@ -665,7 +667,7 @@ case "$1" in
 	 esac
 	 ;;
 
-   -EE)
+   E)
 
      if [[ $# -gt 1 ]]; then
 	$TXT "${@:2}" 
@@ -678,17 +680,18 @@ case "$1" in
     *)
 	echo "
 	wm 0.1 - nhk window management and configuration tool.
-	EE: edit wm directly.
-	pk/upk: (re)package/unpackage nhk-related configurations.	
+	E: edit wm directly.
+	p/u: (re)package/unpackage nhk-related configurations.	
 	q: rebuild or simply quit dwm. 
 	T: view nhk documentation.
 	------------------------------
-	ss: screenshotting function.
-	sv: screen recording function.
-	ar: audio recording function.
+	h: screenshot function.
+	S: selection screenshot function.
+	V: screen recording function.
+	A: audio recording function.
 	------------------------------
 	b: nhk metabrowser (metanet).
-	c: open instant messenger.
+	m: open instant messenger.
 	M: interact with email client.
 	g: git management tool.
 	d: display management tool.
@@ -697,4 +700,5 @@ case "$1" in
 	"
 	;;
 	
-esac 
+esac
+done 
